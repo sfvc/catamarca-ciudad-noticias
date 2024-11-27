@@ -1,0 +1,26 @@
+---
+import {noticias} from 'data/noticias.json';
+import NoticiasPage from 'component/noticias'
+import Layout from 'pages/layout/Layout.astro';
+
+const { id } = Astro.params; // Get the ID from the URL parameters
+
+// Find the corresponding tramite by ID
+const noticiasData = noticias.find((t) => t.id === parseInt(id, 10));
+
+if (!noticiasData) {
+    throw new Error('Trámite no encontrado');
+}
+
+// Function to get static paths for pre-rendering
+export function getStaticPaths() {
+    return noticias.map((t) => ({
+        params: { id: t.id.toString() }, // Convert ID to string
+    }));
+}
+
+---
+
+<Layout title={noticiasData.titulo}>
+    <NoticiasPage client:only="react" noticias={noticiasData} />
+</Layout>

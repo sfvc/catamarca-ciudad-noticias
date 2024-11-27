@@ -1,0 +1,64 @@
+@import url(css/noticias.css);
+@import url(css/home.css);
+
+body {
+    overflow-x: hidden !important;
+    overflow-y: auto; /* Allow vertical scrolling */
+    background: transparent; /* Set body background to transparent */
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar (for WebKit browsers) */
+*::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+    background: transparent; /* Track background transparent */
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: transparent; /* Track background transparent */
+}
+
+*::-webkit-scrollbar-thumb {
+    background: gray; /* Thumb color */
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: rgb(158, 158, 158); /* Thumb color on hover */
+}
+
+
+.paginado {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 10px;
+    width: auto;
+    margin-block: 10px;
+}
+
+.paginado a {
+    padding: 8px 16px;
+    margin: 0 4px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #666;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.paginado a.active {
+    background-color: whitesmoke;
+    color: black;
+    border: 1px solid #666;
+}
+
+.paginado a:hover:not(.active) {
+    background-color: #f1f1f1;
+}
+

@@ -1,0 +1,29 @@
+{
+    "noticias": [
+      {
+        "id":1,
+        "titulo": "Avances en la tecnología de inteligencia artificial",
+        "fecha": "2024-11-25",
+        "fuente": "El Mundo Tech",
+        "descripcion": "Los desarrollos en la inteligencia artificial continúan sorprendiendo al mundo, con nuevas aplicaciones en áreas como la medicina, la educación y el transporte. Investigadores de todo el mundo están explorando cómo la IA puede optimizar procesos y mejorar la calidad de vida.",
+        "url": "https://www.elmundotech.com/avances-en-la-tecnologia-de-ia"
+      },
+      {
+        "id":2,
+        "titulo": "Crecimiento económico en América Latina",
+        "fecha": "2024-11-24",
+        "fuente": "Economía Global",
+        "descripcion": "La economía de América Latina ha mostrado señales de recuperación tras la crisis económica mundial. A pesar de los desafíos, varios países de la región están experimentando un crecimiento sostenido en sectores clave como la tecnología y la infraestructura.",
+        "url": "https://www.economiaglobal.com/crecimiento-en-latinoamerica"
+      },
+      {
+        "id":3,
+        "titulo": "El cambio climático sigue afectando a los ecosistemas marinos",
+        "fecha": "2024-11-23",
+        "fuente": "La Tierra Hoy",
+        "descripcion": "Investigaciones recientes indican que el cambio climático está teniendo un impacto negativo en los ecosistemas marinos, con un aumento en la temperatura de los océanos y la acidificación que afecta a la fauna marina. Expertos llaman a la acción para mitigar los efectos.",
+        "url": "https://www.latierrahoy.com/cambio-climatico-y-ecosistemas-marinos"
+      }
+    ]
+  }
+  

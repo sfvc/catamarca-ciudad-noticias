@@ -1,0 +1,96 @@
+/* Block: news container */
+.news {
+    display: flex;         /* Use flexbox to align title and text side by side */
+    gap: 20px;
+  }
+  .news__article{
+    min-height: 55vh;
+  }
+  /* Element: news title */
+  .news__title {
+    flex: 1;               /* Title takes up 1 portion of the available space */
+    padding: 1rem;         /* Optional, for spacing */
+    text-align: start;
+    align-content: start;
+  }
+
+  .news__title h2, .news__tag h2 {
+    margin-top: 0;
+  }
+  
+  /* Element: news text */
+  .news__tag {
+    position: relative;
+  }
+
+  .news_tag-section{
+    padding: 1rem;
+    position: sticky;
+    top: 1rem;
+    border: 1px solid lightgray;
+    border-radius: 1rem;
+  }
+  /* Remove default list style */
+  .news_tag-ul {
+    list-style: none;
+    padding: 0;
+    overflow-y: scroll;
+    max-height: 50vh;
+    width: 200px;
+  }
+
+.news_tag-a{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+    min-width: 150px;
+    max-height: 75px;
+}
+
+.embedded-post{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+  /* Optional: Adjustments for specific screen sizes */
+  @media (max-width: 1024px) {
+    .news {
+      flex-direction: column-reverse; /* Stack title and text vertically on smaller screens */
+      position: relative;
+    }
+  
+    .news__tag {
+      position: sticky;
+      top: 4px;
+      background-color: white;
+      padding-block: 0;
+    }
+  
+    .news_tag-ul {
+      overflow-x: scroll;
+      max-height: auto;
+      padding-block: 0;
+      width: auto;
+      display: flex;
+      gap: 1rem;
+    }
+  
+    .news_tag-section {
+      border: none;
+      padding: 0;
+      border-radius: 0;
+      text-align: center;
+      z-index: 3;
+      border: 1px solid lightgray;
+      border-radius: 4px;
+    }
+
+    .news_tag-a {
+      height: auto;
+      font-size: medium;
+    }
+  }
+  
+  
