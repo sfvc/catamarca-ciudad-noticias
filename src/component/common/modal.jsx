@@ -6,18 +6,6 @@ const Modal = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
 
     // Disable background scroll when modal is open
-    useEffect(() => {
-        if (isOpen) {
-            document.body.classList.add('modal-open'); // Disable body scroll
-        } else {
-            document.body.classList.remove('modal-open'); // Enable body scroll
-        }
-
-        // Cleanup function to ensure we remove the class on unmount or when modal is closed
-        return () => {
-            document.body.classList.remove('modal-open');
-        };
-    }, [isOpen]);
 
     return (
         <div className="modal">

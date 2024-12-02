@@ -2,6 +2,13 @@
 @import url(css/home.css);
 @import url(css/home2.css);
 @import url(css/modal.css);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+
+*{
+    font-family: 'Roboto', sans-serif !important;
+    font-optical-sizing: auto !important;
+}
 
 body {
     overflow-x: hidden !important;
