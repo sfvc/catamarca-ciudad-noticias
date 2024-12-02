@@ -1,0 +1,150 @@
+{
+    "navMobile": {
+      "navDefault": [
+        {
+          "id": 1,
+          "items": [
+            {
+              "id": 2,
+              "titulo": "Municipalidad",
+              "description": "Trámites y Servicios"
+            },
+            {
+              "id": 3,
+              "titulo": "Municipio Abierto"
+            },
+            {
+                "titulo": "Pagina Oficial",
+                "icon": "/images/externalLink.svg",
+                "link": "https://catamarcaciudad.netlify.app/",
+                "external": true
+            },
+            {
+              "titulo": "Turismo",
+              "icon": "/images/externalLink.svg",
+              "link": "https://sfvc.travel/",
+              "external": true
+            },
+            {
+              "titulo": "Tramites",
+              "icon": "/images/documento.svg",
+              "link": "/grid/35"
+            },
+            {
+              "titulo": "Contacto",
+              "icon": "/images/mail.svg",
+              "link": "https://mail.google.com/mail/?view=cm&fs=1&to=info@catamarcaciudad.gob.ar",
+              "external":true
+            }
+          ]
+        }
+      ],
+      "navSecond": [
+        {
+          "titulo": "Intendente",
+          "link": "/Intendente"
+        },
+        {
+          "titulo": "Estructura Orgánica",
+          "link": "/grid/2"
+        },
+        {
+          "titulo": "Valores",
+          "link": "/perfil/3"
+        },
+        {
+          "titulo": "Reseña Histórica",
+          "link": "/perfil/4"
+        },
+        {
+          "titulo": "Simbología",
+          "link": "/perfil/5"
+        },
+        {
+          "volver": 1,
+          "titulo": "Volver",
+          "icon": "/images/volver.svg"
+        }
+      ],
+      "navThird": [
+        {
+          "titulo": "Acceso a Clave Fiscal",
+          "link": "https://rentas.catamarcaciudad.gob.ar/rentas/index-2.html",
+          "external": true,
+          "externalIcon": "/images/externalLink.svg"
+        },
+        {
+          "titulo": "Consulta de Expedientes",
+          "link": "/consultaExpediente"
+        },
+        {
+          "titulo": "Tramites Municipales Internos",
+          "link": "/grid/35"
+        },
+        {
+          "titulo": "Sistema de Almacenes",
+          "link": "https://almacen.catamarcaciudad.gob.ar/form_login.php",
+          "external": true,
+          "icon": "/images/externalLink.svg"
+        },
+        {
+          "titulo": "GAE-Expedientes",
+          "link": "http://190.228.16.215/expedientes/defaultsinIE.asp",
+          "external": true,
+          "externalIcon": "/images/externalLink.svg"
+        },
+        {
+          "titulo": "Sistema de Juzgado de Falta",
+          "link": "https://mi.argentina.gob.ar/juzgado-falta",
+          "external": true,
+          "icon": "/images/externalLink.svg"
+        },
+        {
+          "titulo": "Sistema de Recursos Humanos",
+          "link": "https://mi.argentina.gob.ar/recursos-humanos",
+          "external": true,
+          "icon": "/images/externalLink.svg"
+        },
+        {
+          "titulo": "Recursos Humanos",
+          "link": "/grid/36"
+        },
+        {
+          "titulo": "Sistema de Fiscalizacion de Obras",
+          "link": "http://190.228.16.215:90/fiscalizacion/form_login.php",
+          "external": true,
+          "externalIcon": "/images/externalLink.svg"
+        },
+        {
+          "titulo": "Administracion de Compras y Licitaciones",
+          "link": "https://compras.catamarcaciudad.gob.ar:8443/admin/login/?next=/",
+          "external": true,
+          "icon": "/images/externalLink.svg"
+        },
+        {
+          "titulo": "Sistema de Inspecciones",
+          "link": "https://inspecciones.catamarcaciudad.gob.ar/login",
+          "external": true,
+          "icon": "/images/externalLink.svg"
+        },
+        {
+          "titulo": "Sistema de Insumos de Educacion",
+          "link": "https://educacion.catamarcaciudad.gob.ar/educacion/form_login.php",
+          "external": true,
+          "externalIcon": "/images/externalLink.svg"
+        },
+        {
+          "titulo": "GeoExplorer Terrenos",
+          "link": "https://capaterrenos.catamarcaciudad.gob.ar/login",
+          "external": true,
+          "externalIcon": "/images/externalLink.svg"
+        },
+        {
+          "volver": 1,
+          "titulo": "Volver",
+          "icon": "/images/volver.svg"
+        }
+      ]
+    }
+  }
+  

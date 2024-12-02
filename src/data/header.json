@@ -79,6 +79,11 @@
                     "link": "/grid/2"
                 },
                 {
+                    "label": "Pagina Oficial",
+                    "link": "https://catamarcaciudad.netlify.app/",
+                    "external": true
+                },
+                {
                     "label": "Valores",
                     "link": "/perfil/3"
                 },

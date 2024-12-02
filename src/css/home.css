@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-block: 1rem;
 }
   
   .home-page__search {
@@ -70,20 +69,15 @@
     font-size: 18px;
     font-weight: bold;
     color: white;
-    position: absolute;
-    bottom: 2rem;
-    left: 1rem;
     text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black,
     1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;
-    font-size: 1.5rem;
+    font-size: 1rem;
+    text-decoration: none;
   }
 
   .home-page__news-description {
     font-size: 14px;
     color: white;
-    position: absolute;
-    bottom: 0.5rem;
-    left: 1rem;
     text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black,
     1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;
     text-overflow: ellipsis; /* Display ellipsis when text overflows */
@@ -116,7 +110,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 20px; /* space between items */
+  gap: 0px; /* space between items */
   flex-wrap: nowrap;
   overflow-x: auto;
 }
@@ -129,7 +123,7 @@
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  width: 400px; /* Set the fixed width for each news item */
+  width: 250px; /* Set the fixed width for each news item */
   height: 100px; /* Set the height for each news item */
   background-size: cover; /* Ensure the background image fits */
   background-repeat: no-repeat;
@@ -157,14 +151,15 @@
 }
 
 .news-item h3 {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   margin: 0;
+  max-width: 200px;
 }
 
 .news-description {
-  font-size: 1rem;
+  font-size: 0.6rem;
   max-height: 100px;
-  max-width: 250px; /* Set the max-width according to your desired limit */
+  max-width: 200px; /* Set the max-width according to your desired limit */
   white-space: nowrap; /* Prevent text from wrapping to the next line */
   overflow: hidden; /* Hide overflowed content */
   text-overflow: ellipsis; /* Display ellipsis when text overflows */
@@ -174,8 +169,7 @@
   position: absolute;
   bottom: 4px;
   right: 8px;
-  width: 18px;
-  height: 18px;
+  width: 0.7rem;
   display: inline-block;
 }
 
@@ -200,6 +194,16 @@
     background-repeat: no-repeat;
     position: relative;
     border: 1px solid lightgray;
+    display: flex;
+    align-items: start;
+    justify-content: end;
+    flex-direction: column;
+    padding: 10px;
+    text-decoration: none;
+  }
+
+  .grid-item:hover{
+    text-decoration: none;
   }
 
   /* Specific grid areas and images */
@@ -207,6 +211,7 @@
     grid-area: 1 / 1 / 5 / 5;
     background-image: url('/images/parquejumeal.webp');
     height:35vh;
+
   }
   
   .div2 {
@@ -242,19 +247,16 @@
     }
 
     .home-page__news-title {
-      font-size: 1.5rem;
+      font-size:0.8rem;
+      margin-bottom: 1rem;
     }
   
     .home-page__news-description {
-      font-size: 0.5em;
-      max-width: 150px;
+      font-size: 0.7em;
+      max-width: 90%;
       overflow: hidden;
       text-overflow: ellipsis;
       margin-bottom: 1.5rem;
-    }
-
-    .home-page__news-description--card-grande {
-      max-width: 250px !important;
     }
 
     .parent {
@@ -271,7 +273,6 @@
     .div1 {
       grid-area: 1 / 1 / 3 / 3; /* Spans 2 columns and 2 rows */
       background-image: url('/images/parquejumeal.webp');
-      height: 50vh; /* Adjust height as needed */
       
     }
   
@@ -299,11 +300,53 @@
       grid-area: 5 / 1 / 6 / 3; /* Spans both columns in row 5 */
       background-image: url('/images/parquejumeal.webp');
     }
+    
+    .news-item {
+      width: 150px; /* Set the fixed width for each news item */
+      height: 75px; /* Set the height for each news item */
+      text-overflow: ellipsis;
+      overflow: hidden; /* Hide the text overflow */
+      white-space: nowrap; /* Prevent text from wrapping to the next line */
+    }
+    
+    .news-container{
+      gap: 0;
+    }
+
+    .news-item h3 {
+      font-size: 0.6rem; /* Adjust this based on the height */
+      line-height: 1.2; /* Vertical alignment adjustment */
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100px;
+    }
+    
+    .news-item p {
+      font-size: 6px; /* Adjust based on available space */
+      line-height: 1.2; /* Maintain line spacing */
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100px;
+    }
+
+    .header__displaynone{
+      display: none;
+    }
+
+    .link-icon {
+      width: 0.5rem;
+    }
+    
   }
   
   @media (max-width: 767.9px){
-    .div1 {
-      height: 70vh; /* Adjust height as needed */
-      
+    .home-page__news-description{
+      font-size: 0.5rem;
+    }
+    .home-page__news-title {
+      font-size:0.6rem;
+      margin-bottom: 1rem;
     }
   }

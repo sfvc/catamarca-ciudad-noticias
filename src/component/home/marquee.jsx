@@ -20,7 +20,7 @@ const MarqueeItems = () => {
   // Correctly create the newsItems array
   const newsItems = Array.from({ length: 16 }, (_, index) => ({
     icon: "/images/parquejumeal.webp",
-    title: `Noticia ${index + 1}`, // Added +1 to start titles from "Titulo 1"
+    title: `Actividades en el Muse Historico y en el Museo virgen del valle ${index + 1}`, // Added +1 to start titles from "Titulo 1"
     description: `Texto de descripcion de prueba para noticia Texto de descripcion de prueba para noticiaTexto de descripcion de prueba para noticia${index + 1}`, // Same here for better user experience
     link: `/noticias/${index + 1}` // Dynamically link to each item
   }));

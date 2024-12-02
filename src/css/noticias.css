@@ -2,6 +2,8 @@
 .news {
     display: flex;         /* Use flexbox to align title and text side by side */
     gap: 20px;
+    padding-bottom: 1px;
+    padding-top: 1rem;
   }
   .news__article{
     min-height: 55vh;
@@ -55,17 +57,9 @@
 }
 
   /* Optional: Adjustments for specific screen sizes */
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
     .news {
-      flex-direction: column-reverse; /* Stack title and text vertically on smaller screens */
-      position: relative;
-    }
-  
-    .news__tag {
-      position: sticky;
-      top: 4px;
-      background-color: white;
-      padding-block: 0;
+      flex-direction: column; /* Stack title and text vertically on smaller screens */
     }
   
     .news_tag-ul {
@@ -78,19 +72,9 @@
     }
   
     .news_tag-section {
-      border: none;
-      padding: 0;
-      border-radius: 0;
       text-align: center;
-      z-index: 3;
-      border: 1px solid lightgray;
-      border-radius: 4px;
     }
 
-    .news_tag-a {
-      height: auto;
-      font-size: medium;
-    }
   }
   
   

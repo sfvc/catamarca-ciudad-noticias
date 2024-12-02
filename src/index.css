@@ -1,5 +1,7 @@
 @import url(css/noticias.css);
 @import url(css/home.css);
+@import url(css/home2.css);
+@import url(css/modal.css);
 
 body {
     overflow-x: hidden !important;
@@ -62,3 +64,6 @@ html {
     background-color: #f1f1f1;
 }
 
+body.modal-open {
+    overflow: hidden; /* Disable background scroll */
+}
