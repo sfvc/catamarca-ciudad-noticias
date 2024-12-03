@@ -33,13 +33,13 @@ const NoticiasHome = () => {
                         <div className="col-xs-12 col-sm-6 col-md-4" key={index}>
                             <a href={`/noticiasmunicipales/${news.slug}`} className="panel panel-default">
                                 <img 
+                                    className="home-new__img"
                                     src={`${imageURL}${news.image}`}
                                     alt={news.title} 
-                                    style={{ width: "100%"}} 
                                 />
                                 <div className="panel-body home-new m-b-1">
-                                    <p className="h3">{news.title}</p>
-                                    <p>{news.excerpt}</p>
+                                    <h3 className="home-new__h3">{news.title}</h3>
+                                    <p className="home-new__p">{news.excerpt}</p>
                                     <div className="icon-arrow-right text-primary">
                                         <i className="fa fa-arrow-right"></i>
                                     </div>

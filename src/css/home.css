@@ -350,3 +350,19 @@
       margin-bottom: 1rem;
     }
   }
+
+  .home-new__p{
+    font-size: small !important;
+    padding-top: 10px;
+    border-top: 1px solid lightgray;
+  }
+
+  .home-new__h3{
+    font-size: large !important;
+    min-height: 100px;
+  }
+
+  .home-new__img{
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+  }
