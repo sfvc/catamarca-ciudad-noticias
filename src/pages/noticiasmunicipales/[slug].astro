@@ -1,0 +1,31 @@
+---
+import NoticiasPage from '../../component/noticias';
+import Layout from '../layout/Layout.astro';
+
+// Fetch the list of slugs at build time
+export async function getStaticPaths() {
+  const response = await fetch('https://noti.cc.gob.ar/api/posts');
+  const data = await response.json();
+
+  // Return a list of paths with slugs
+  return data.data.map((post) => ({
+    params: { slug: post.slug }, // Use slug for dynamic routing
+  }));
+}
+
+// Get the slug from the URL parameters
+const { slug } = Astro.params;
+// Fetch the data for the specific post
+const response = await fetch('https://noti.cc.gob.ar/api/posts');
+const data = await response.json();
+const noticiasData = data.data.find((t) => t.slug === slug);
+
+if (!noticiasData) {
+    throw new Error('Noticia no encontrada');
+}
+
+---
+
+<Layout title={noticiasData.title}>
+    <NoticiasPage client:only="react" noticias={noticiasData} />
+</Layout>

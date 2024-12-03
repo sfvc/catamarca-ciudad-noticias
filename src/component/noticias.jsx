@@ -4,18 +4,24 @@ import NoticiasMain from './noticias/noticiasMain';
 import NoticiasTags from './noticias/noticiasTags';
 
 const NoticiasPage = ({ noticias }) => {
-  // Generating the tags dynamically
-
+  // Destructure the properties you need from the `noticias` object
+  const { title, excerpt, content, image, tags } = noticias;
+  const imgURL = 'https://archivos-cc.sfo3.digitaloceanspaces.com/';
   return (
     <div className="region region-content container">
       <div id="block-system-main" className="block block-system clearfix">
+        
         <article>
-          <NoticiasHeader/>
+          {/* Pass the necessary data to NoticiasHeader */}
+          <NoticiasHeader title={title} excerpt={excerpt} image={`${imgURL}${image}`} />
 
           <section className="content_format">
             <div className="news">
-              <NoticiasMain/>
-              <NoticiasTags/>
+              {/* Pass the content to NoticiasMain */}
+              <NoticiasMain content={content} />
+              
+              {/* Pass the tags to NoticiasTags */}
+              <NoticiasTags tags={tags} />
             </div>
           </section>
         </article>

@@ -1,8 +1,6 @@
 ---
- import Footer from 'component/common/footer'
-import Header from 'component/common/header'
-import HomePage from 'component/home'
 import 'index.css'
+import App from 'pages'
 ---
 
 <!DOCTYPE html>
@@ -43,8 +41,6 @@ import 'index.css'
     </head>
 
     <body role="document" class="html front not-logged-in no-sidebars page-node i18n-es jquery-once-1-processed">
-        <Header client:only="react"/>
-		  <HomePage client:only="react"/>
-        <Footer client:only="react"/>
+        <App client:only="react"/>
     </body>
 </html>

@@ -1,23 +1,45 @@
-const NoticiasHome = () => {
+import { useQuery } from "react-query";
+import axios from "axios";
 
-    const newsPoncho = Array.from({ length: 16 }, (_, index) => ({
-        titulo: `titulo ${index + 1}`,
-        descripcion: `descripcion ${index + 1}`,
-    }));
+const NoticiasHome = () => {
+  
+    // Define the base URL for images (replace with the actual base URL if necessary)
+    const imageURL = "https://archivos-cc.sfo3.digitaloceanspaces.com/";
+
+    const fetchPosts = async () => {
+        const response = await axios.get("https://noti.cc.gob.ar/api/posts");
+        return response.data; // The entire response object
+    };
+
+    const { data, error, isLoading } = useQuery("posts", fetchPosts);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    }
+
+    // Ensure that `data.data` is an array before trying to map over it
+    const posts = data?.data || []; // Access the posts array
 
     return (
         <>
             <section>
-                <h2 style={{textAlign:"center"}}>Noticias Generales</h2>
+                <h2 style={{ textAlign: "center" }}>Noticias Generales</h2>
                 <div className="row panels-row">
-                    {/* Correcting the .map() syntax */}
-                    {newsPoncho.map((news, index) => (
+                    {posts.map((news, index) => (
                         <div className="col-xs-12 col-sm-6 col-md-4" key={index}>
-                            <a href="/tema/documentacion" className="panel panel-default">
-                                <img src="/images/parquejumeal.webp" alt="" style={{ width: "100%" }} />
+                            <a href={`/noticiasmunicipales/${news.slug}`} className="panel panel-default">
+                                <img 
+                                    src={`${imageURL}${news.image}`}
+                                    alt={news.title} 
+                                    style={{ width: "100%"}} 
+                                />
                                 <div className="panel-body home-new m-b-1">
-                                    <p className="h3">{news.titulo}</p>
-                                    <p>{news.descripcion}</p>
+                                    <p className="h3">{news.title}</p>
+                                    <p>{news.excerpt}</p>
                                     <div className="icon-arrow-right text-primary">
                                         <i className="fa fa-arrow-right"></i>
                                     </div>
