@@ -2,6 +2,7 @@ import React from 'react';
 import NoticiasHeader from './noticias/noticiasHeader';
 import NoticiasMain from './noticias/noticiasMain';
 import NoticiasTags from './noticias/noticiasTags';
+import NoticiasGaleria from './noticias/noticiasGaleria';
 
 const NoticiasPage = ({ noticias }) => {
   // Destructure the properties you need from the `noticias` object
@@ -14,7 +15,9 @@ const NoticiasPage = ({ noticias }) => {
         <article>
           {/* Pass the necessary data to NoticiasHeader */}
           <NoticiasHeader title={title} excerpt={excerpt} image={`${imgURL}${image}`} />
-
+          
+          <h2>Seccion de Fotos</h2>
+          <NoticiasGaleria/>
           <section className="content_format">
             <div className="news">
               {/* Pass the content to NoticiasMain */}

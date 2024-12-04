@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import NoticiasGaleria from './noticiasGaleria';
 
 const NoticiasMain = () => {
   return (
@@ -19,6 +20,7 @@ const NoticiasMain = () => {
             <li>Evitar maniobras bruscas y frenadas repentinas.</li>
             <li>Para motociclistas: usar siempre casco, mejorar la visibilidad con ropa clara y evitar superficies irregulares y zonas inundadas.</li>
           </ul>
+          <NoticiasGaleria/>
           <p>
             La ANSV recuerda además la importancia de circular con la documentación obligatoria,
             respetar las normas de tránsito y estar atentos a los reportes meteorológicos para
