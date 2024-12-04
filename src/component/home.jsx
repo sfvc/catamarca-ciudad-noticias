@@ -5,17 +5,9 @@ import MarqueeItems from "./home/marquee";
 const HomePage = () => {
     return (
       <div className="home-page container">
-        
-        {/* Search Bar */}
-        <div className="home-page__search">
-          <input type="text" placeholder="Buscar..." className="home-page__search-input" />
-          <button className="home-page__search-button">Buscar</button>
-        </div>
-        {/* Categories Section */}
         <Marquee speed={30} pauseOnHover="true" gradient={true} gradientColor='white' gradientWidth={10}>
           <MarqueeItems icon= "/images/parquejumeal.webp"/>
         </Marquee>
-        {/* News Grid Section */}
         <div className="parent">
             <a href="/news/1" className="div1 grid-item"> 
                 <h3 className="home-page__news-title">Actividades en el Muse Historico y en el Museo virgen del valle</h3>
@@ -51,9 +43,9 @@ const HomePage = () => {
                 <img src="/images/link.svg" alt="link icon" className="link-icon" />
             </a>
         </div>
-        {/* News Section */}
+        <h2 style={{ textAlign: "center" }}>Noticias Generales</h2>
         <NoticiasHome />
-  
+        <a className="home-noticias__linkbuscarnoticias" href="/buscarnoticias">Ver mas noticias</a>
       </div>
     );
   };

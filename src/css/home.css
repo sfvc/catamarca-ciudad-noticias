@@ -4,31 +4,7 @@
     gap: 20px;
 }
   
-  .home-page__search {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  .home-page__search-input {
-    padding: 10px;
-    width: 200px;
-    font-size: 16px;
-    flex: 1;
-    border: 1px solid lightgray;
-    border-radius: 6px;
-  }
-  
-  .home-page__search-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: gray;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 10px;
-  }
-  
+
   .home-page__categories {
   }
   
@@ -358,6 +334,7 @@
   }
 
   .home-new__h3{
+    /* usar clamp */
     font-size: large !important;
     min-height: 100px;
   }
@@ -365,4 +342,19 @@
   .home-new__img{
     width: 100%;
     border-radius: 10px 10px 0px 0px;
+  }
+
+  .home-noticias__linkbuscarnoticias{
+    margin: 0 auto;
+    padding: 12px 24px;
+    border-radius: 10px;
+    background-color: #253a64;
+    text-decoration: none;
+    color: white;
+  }
+
+  .home-noticias__linkbuscarnoticias:hover{
+    text-decoration: none;
+    color: white;
+    background-color: #1e2f50;
   }

@@ -9,7 +9,7 @@ const App = () => {
     return (
         <QueryClientProvider client={queryClient}>
             <Header />
-            <HomePage />
+                <HomePage />
             <Footer />
         </QueryClientProvider>
     );

@@ -1,0 +1,56 @@
+.buscarnoticias {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .buscarnoticias__input {
+    padding: 10px;
+    width: 200px;
+    font-size: 16px;
+    flex: 1;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+  }
+  
+  .buscarnoticias__button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: gray;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  
+  .buscarnoticias__list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px; /* Add space between the items */
+    padding: 10px 0px 10px 0px;
+}
+
+.buscarnoticias__item {
+    min-width: 50px; /* You can adjust the width depending on how many items you want per row */
+    box-sizing: border-box; /* Ensure padding and border are included in the width calculation */
+    background-color: white; /* Add background to distinguish items */
+    padding: 4px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+}
+
+.buscarnoticias__item:hover {
+    background-color: whitesmoke; /* Optional: Add hover effect */
+    cursor: pointer;
+}
+
+.buscarnoticias__item:focus {
+    background-color: whitesmoke; /* Optional: Add hover effect */
+    cursor: pointer;
+}
+
+.buscarnoticias__container{
+    min-height: 60vh;
+}
