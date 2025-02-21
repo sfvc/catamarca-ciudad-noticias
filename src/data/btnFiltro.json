@@ -1,0 +1,23 @@
+[
+    {
+      "id": "week",
+      "icon": "/images/buscarnoticias/lastweek.svg",
+      "alt": "Última Semana"
+    },
+    {
+      "id": "30days",
+      "icon": "/images/buscarnoticias/lastmonth.svg",
+      "alt": "Últimos 30 Días"
+    },
+    {
+      "id": "date",
+      "icon": "/images/buscarnoticias/calendar.svg",
+      "alt": "Por Fecha"
+    },
+    {
+      "id": "category",
+      "icon": "/images/buscarnoticias/category.svg",
+      "alt": "Por Categoría"
+    }
+]
+  

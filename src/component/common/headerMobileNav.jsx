@@ -11,6 +11,8 @@ const HeaderMobileNav = () => {
             return <SecondModalMobile setSelectedId={setSelectedId} />;
         } else if (selectedId === 3) {
             return <ThirdModalMobile setSelectedId={setSelectedId} />;
+        } else if (selectedId === 4) {
+            return <ThirdModalMobile setSelectedId={setSelectedId} />;
         }
         return <FirstModalMobile setSelectedId={setSelectedId} />;
     };
@@ -103,5 +105,6 @@ const ThirdModalMobile = ({ setSelectedId }) => {
         </div>
     );
 };
+
 
 export default HeaderMobileNav;

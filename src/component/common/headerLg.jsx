@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { dropdowns } from '../../data/header.json'; // Adjust the path as needed
+import AccessBtn from './accessBtn';
+import AccessProvider from './accessProvider';
 
 const HeaderLg = () => {
     const [dropdownOpen, setDropdownOpen] = useState({});
@@ -75,14 +77,9 @@ const HeaderLg = () => {
                         />
                     </a>
                 </div>
-
-
                 <div className="header__displaynone">
                     <a className="btn btn-login boton__default" href="https://mail.google.com/mail/?view=cm&fs=1&to=info@catamarcaciudad.gob.ar" target="_blank">Contacto</a>
                     <a className="btn btn-login boton__default" href="/grid/1">Tramites</a>
-                    <a className="btn btn-login boton__default" href="https://sfvc.travel/" target="_blank">Turismo</a>
-                    
-                    {/* Mobile menu dropdowns */}
                     {dropdowns.map(({ name, options }) => (
                         <div className="dropdown" key={name} ref={(el) => (dropdownRefs.current[name] = el)}>
                             <button
@@ -107,11 +104,10 @@ const HeaderLg = () => {
                                     <button className="btn btn-danger m-b-2" onClick={closeMobileMenu}>Cerrar</button>
                                 </ul>
                             )}
+                            
                         </div>
                     ))}
-
                 </div>
-
             </div>
         </nav>
     );

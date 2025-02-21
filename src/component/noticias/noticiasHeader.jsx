@@ -10,17 +10,12 @@ const NoticiasHeader = ({ title, excerpt, image }) => {
               {/* Title */}
               <div className="title-description">
                 <h1>{title}</h1>
+                <p>Se lanzó “Mi Capital Conecta”, la plataforma para conectar trabajadores de oficios con ciudadanos</p>
+                <small>09 de Diciembre del 2025</small>
               </div>
-
-              {/* Excerpt */}
-              <div className="news__lead">
-                <p>{excerpt}</p>
-              </div>
-
-              {/* Featured Image */}
               <div className="news__main-image-container" 
                    style={{ backgroundImage: `url(${image})` }} />
-            </div>
+              </div>
           </div>
         </div>
       </div>

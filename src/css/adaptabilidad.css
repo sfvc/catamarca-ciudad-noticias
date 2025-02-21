@@ -1,0 +1,84 @@
+/* Accessibility Styles */
+
+.font-large {
+  font-size: 18px !important;
+}
+
+.underline {
+  text-decoration: underline !important;
+}
+
+.dyslexia-font {
+  font-family: "Comic Sans MS", sans-serif !important;
+}
+
+body {
+  font-size: 16px; /* Default font size */
+}
+
+/* Dyslexia-friendly font applied to body */
+body.dyslexia-font {
+  font-family: "Comic Sans MS", sans-serif !important;
+}
+
+.accessItem{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.accessItem p {
+  all: unset;
+  flex: 1;
+}
+
+.accessItem small {
+  flex: 1;
+  text-align: end;
+}
+
+
+.access-menu{
+  padding: 1rem 0px 0px 0px;
+}
+
+.access-menu-large{
+  position: fixed;
+  bottom: 0;
+
+}
+
+.access-menu__ul{
+  list-style: none;
+  margin: 0;
+  display: flex;
+  align-items: start;
+  width: 100%;
+  padding: 0px 1rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.access-menu-large{
+  background-color: black;
+  width: 100%;
+  height: 100%;
+}
+
+.access-btn-reset-div{
+  padding: 1rem 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.access-btn-reset-div__btn{
+  padding: 6px 12px;
+  border: 1px solid #001529;
+  color: white;
+  background-color: #001529;
+  font-weight: 500;
+  border-radius: 4px;
+}

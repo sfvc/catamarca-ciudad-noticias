@@ -1,0 +1,148 @@
+{
+  "data": [
+    {
+      "slug": "noticia-1",
+      "title": "Noticia de Ejemplo 1",
+      "image": "example-image-1.jpg",
+      "date": "2025-01-21",
+      "categories": ["Tecnología", "Cultura"],
+      "tags": ["Innovación", "Futuro"]        
+    },
+    {
+      "slug": "noticia-2",
+      "title": "Noticia de Ejemplo 2",
+      "image": "example-image-2.jpg",
+      "date": "2025-01-19",
+      "categories": ["Salud", "Economía"],   
+      "tags": ["Salud mental", "Pandemia"]    
+    },
+    {
+      "slug": "noticia-3",
+      "title": "Noticia de Ejemplo 3",
+      "image": "example-image-3.jpg",
+      "date": "2024-01-18",
+      "categories": ["Deportes", "Economía"],
+      "tags": ["Startups", "Cambio climático"]
+    },
+    {
+      "slug": "noticia-1",
+      "title": "Noticia de Ejemplo 1",
+      "image": "example-image-1.jpg",
+      "date": "2025-01-21",
+      "categories": ["Tecnología", "Cultura"],
+      "tags": ["Innovación", "Futuro"]        
+    },
+    {
+      "slug": "noticia-2",
+      "title": "Noticia de Ejemplo 2",
+      "image": "example-image-2.jpg",
+      "date": "2025-01-19",
+      "categories": ["Salud", "Economía"],   
+      "tags": ["Salud mental", "Pandemia"]    
+    },
+    {
+      "slug": "noticia-3",
+      "title": "Noticia de Ejemplo 3",
+      "image": "example-image-3.jpg",
+      "date": "2024-01-18",
+      "categories": ["Deportes", "Economía"],
+      "tags": ["Startups", "Cambio climático"]
+    },
+    {
+      "slug": "noticia-1",
+      "title": "Noticia de Ejemplo 1",
+      "image": "example-image-1.jpg",
+      "date": "2025-01-21",
+      "categories": ["Tecnología", "Cultura"],
+      "tags": ["Innovación", "Futuro"]        
+    },
+    {
+      "slug": "noticia-2",
+      "title": "Noticia de Ejemplo 2",
+      "image": "example-image-2.jpg",
+      "date": "2025-01-19",
+      "categories": ["Salud", "Economía"],   
+      "tags": ["Salud mental", "Pandemia"]    
+    },
+    {
+      "slug": "noticia-3",
+      "title": "Noticia de Ejemplo 3",
+      "image": "example-image-3.jpg",
+      "date": "2024-01-18",
+      "categories": ["Deportes", "Economía"],
+      "tags": ["Startups", "Cambio climático"]
+    },
+    {
+      "slug": "noticia-1",
+      "title": "Noticia de Ejemplo 1",
+      "image": "example-image-1.jpg",
+      "date": "2025-01-21",
+      "categories": ["Tecnología", "Cultura"],
+      "tags": ["Innovación", "Futuro"]        
+    },
+    {
+      "slug": "noticia-2",
+      "title": "Noticia de Ejemplo 2",
+      "image": "example-image-2.jpg",
+      "date": "2025-01-19",
+      "categories": ["Salud", "Economía"],   
+      "tags": ["Salud mental", "Pandemia"]    
+    },
+    {
+      "slug": "noticia-3",
+      "title": "Noticia de Ejemplo 3",
+      "image": "example-image-3.jpg",
+      "date": "2024-01-18",
+      "categories": ["Deportes", "Economía"],
+      "tags": ["Startups", "Cambio climático"]
+    },
+    {
+      "slug": "noticia-1",
+      "title": "Noticia de Ejemplo 1",
+      "image": "example-image-1.jpg",
+      "date": "2025-01-21",
+      "categories": ["Tecnología", "Cultura"],
+      "tags": ["Innovación", "Futuro"]        
+    },
+    {
+      "slug": "noticia-2",
+      "title": "Noticia de Ejemplo 2",
+      "image": "example-image-2.jpg",
+      "date": "2025-01-19",
+      "categories": ["Salud", "Economía"],   
+      "tags": ["Salud mental", "Pandemia"]    
+    },
+    {
+      "slug": "noticia-3",
+      "title": "Noticia de Ejemplo 3",
+      "image": "example-image-3.jpg",
+      "date": "2024-01-18",
+      "categories": ["Deportes", "Economía"],
+      "tags": ["Startups", "Cambio climático"]
+    },
+    {
+      "slug": "noticia-1",
+      "title": "Noticia de Ejemplo 1",
+      "image": "example-image-1.jpg",
+      "date": "2025-01-21",
+      "categories": ["Tecnología", "Cultura"],
+      "tags": ["Innovación", "Futuro"]        
+    },
+    {
+      "slug": "noticia-2",
+      "title": "Noticia de Ejemplo 2",
+      "image": "example-image-2.jpg",
+      "date": "2025-01-19",
+      "categories": ["Salud", "Economía"],   
+      "tags": ["Salud mental", "Pandemia"]    
+    },
+    {
+      "slug": "noticia-3",
+      "title": "Noticia de Ejemplo 3",
+      "image": "example-image-3.jpg",
+      "date": "2024-01-18",
+      "categories": ["Deportes", "Economía"],
+      "tags": ["Startups", "Cambio climático"]
+    }
+  ]
+}

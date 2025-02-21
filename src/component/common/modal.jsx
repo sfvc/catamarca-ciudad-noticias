@@ -9,7 +9,6 @@ const Modal = ({ isOpen, onClose, children }) => {
 
     return (
         <div className="modal">
-
                 {children}
         </div>
     );

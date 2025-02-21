@@ -8,9 +8,7 @@ const Header = () => {
     return (
             <header>
                 <div style={{backgroundColor:"#001529"}}>
-
-                <MarqueeHeader/>
-
+                    <MarqueeHeader/>
                 </div>
                 <HeaderLg/>
                 <HeaderMobile/>

@@ -99,12 +99,12 @@
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  width: 250px; /* Set the fixed width for each news item */
-  height: 100px; /* Set the height for each news item */
+  width: 350px; /* Set the fixed width for each news item */
+  height: 200px; /* Set the height for each news item */
   background-size: cover; /* Ensure the background image fits */
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 1;
+  z-index: 0;
   border: 1px solid lightgray;
 }
 
@@ -116,7 +116,7 @@
   position: absolute; /* Positioning content over the background image */
   display: flex;
   justify-content: space-between;
-  z-index: 2; /* Make sure the content is on top of the image */
+  z-index: 0; /* Make sure the content is on top of the image */
   color: #fff; /* Ensure content is visible on the background image */
   text-align: start;
   padding-inline: 10px;
@@ -184,9 +184,9 @@
 
   /* Specific grid areas and images */
   .div1 {
-    grid-area: 1 / 1 / 5 / 5;
+    grid-area: 1 / 1 / 7 / 5;
     background-image: url('/images/parquejumeal.webp');
-    height:35vh;
+    height:55vh;
 
   }
   
@@ -247,7 +247,7 @@
     
 
     .div1 {
-      grid-area: 1 / 1 / 3 / 3; /* Spans 2 columns and 2 rows */
+      grid-area: 1 / 1 / 4 / 3; /* Spans 2 columns and 2 rows */
       background-image: url('/images/parquejumeal.webp');
       
     }
@@ -279,7 +279,7 @@
     
     .news-item {
       width: 150px; /* Set the fixed width for each news item */
-      height: 75px; /* Set the height for each news item */
+      height: 150px; /* Set the height for each news item */
       text-overflow: ellipsis;
       overflow: hidden; /* Hide the text overflow */
       white-space: nowrap; /* Prevent text from wrapping to the next line */
@@ -344,6 +344,10 @@
     border-radius: 10px 10px 0px 0px;
   }
 
+  .panel-default{
+    border-radius: 10px !important;
+  }
+
   .home-noticias__linkbuscarnoticias{
     margin: 0 auto;
     padding: 12px 24px;
@@ -358,3 +362,5 @@
     color: white;
     background-color: #1e2f50;
   }
+
+

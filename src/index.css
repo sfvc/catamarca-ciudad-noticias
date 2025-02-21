@@ -2,22 +2,26 @@
 @import url(css/home.css);
 @import url(css/home2.css);
 @import url(css/modal.css);
+@import url(css/darkMode.css);
 @import url(css/buscarnoticias.css);
+@import url(css/adaptabilidad.css);
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 
 *{
     font-family: 'Roboto', sans-serif !important;
-    font-optical-sizing: auto !important;
+    height: auto;
 }
 
 body {
     overflow-x: hidden !important;
     overflow-y: auto; /* Allow vertical scrolling */
-    background: transparent; /* Set body background to transparent */
+    background: white; /* Set body background to transparent */
+    z-index: 0;
+    height: auto;
+    color:black;
 }
 
-/* Smooth scrolling */
 html {
     scroll-behavior: smooth;
 }
@@ -79,3 +83,54 @@ body.modal-open {
 .display-none{
     display: none;
 }
+
+/* Tooltip.css */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+}
+
+.tooltip {
+position: absolute;
+top: 125%;
+left: 50%;
+transform: translateX(-50%);
+background-color: #001529;
+color: white;
+padding: 5px 10px;
+border-radius: 4px;
+font-size: 12px;
+white-space: nowrap;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s ease;
+filter: brightness(1.5);
+z-index: 1;
+}
+
+.tooltip-container:hover .tooltip {
+opacity: 1;
+cursor: pointer;
+}
+
+.tooltip::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;  /* Position the arrow just below the tooltip */
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent; /* Left side of the triangle */
+    border-right: 5px solid transparent; /* Right side of the triangle */
+    border-bottom: 5px solid #001529; /* The arrow itself (triangle) */
+}
+
+section{
+    padding: 0 !important;
+}
+
+.panel-body{
+    padding: 10px !important;
+}
+

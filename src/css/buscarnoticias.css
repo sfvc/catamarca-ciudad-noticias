@@ -1,56 +1,686 @@
-.buscarnoticias {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
+.buscarnoticias__input-items{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
+}
+
+.buscarnoticias__input{
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 0.25rem;
+  border: 1px solid lightgrey;
+}
+
+.buscarnoticias__input-btn{
+  padding: 8px 12px;
+  background-color: #001529;
+  border: 1px solid #001529;
+  color: white;
+  border-radius: 0.25rem;
+}
+
+.buscarnoticias__input-search{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0px 0px ;
+  gap: 10px;
+}
+
+.buscarnoticias__input-btn-continer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 6px 0px; 
+}
+
+.buscarnoticias__input{
+
+}
+
+/* Overlay */
+.categorias-modal__overlay {
+  position: absolute;
+  top: 23%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  z-index: 2;
+}
+
+
+.categorias-modal__content-calendar{
+  width: 100%;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  padding: 10px;
+  gap: 1rem;
+}
+
+/* Content container for the modal */
+.categorias-modal__content {
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  width: 100%;
+  max-height: 75dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Title of the modal */
+.categorias-modal__title {
+  margin-bottom: 15px;
+  font-size: 18px;
+  text-align: start;
+}
+
+/* List container for categories */
+.categorias-modal__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.categorias-modal__btns{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+/* Individual category items */
+.categorias-modal__item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.categorias-modal__item:hover{
+  background-color: whitesmoke;
+  color: #001529;
+}
+
+.categorias-modal__item img {
+  margin-inline: 1rem;
+}
+
+.categorias-modal__close-btndiv{
+  display: inline-flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.categorias-modal__close-btn:hover {
+  cursor: pointer;
+}
+
+.categorias-modal__categorias2{
+  display: inline-flex;
+  justify-content: space-around;
+  padding: 1rem 0;
+  border-bottom: 1px solid lightgray;
+}
+
+.categorias-modal__categorias2 button,
+.categorias-modal__btns button
+{
+  min-width: 75px;
+  padding: 6px 12px;
+  border: 1px solid lightgray;
+  background-color: white;
+  color: black;
+  text-align: center;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
+.categorias-modal__categorias2 button:hover, 
+.categorias-modal__categorias2 button:focus,
+.categorias-modal__categorias2 button:active,
+.categorias-modal__btns button:hover,
+.categorias-modal__btns button:focus,
+.categorias-modal__btns button:active
+{
+  border: 1px solid lightgray;
+  background-color: lightgray;
+  color: black;
+  cursor: pointer;
+}
+
+
+.categorias-modal__list-actions{
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  padding: 0px 10px;
+  gap: 10px;
+}
+
+.categorias-modal__list-actions div:last-child{
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.categorias-modal__search{
+  margin: 0px 10px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid lightgrey;
+}
+
+/* Styling for calendar */
+.calendar-container {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.calendar-label {
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.buscarnoticias__calendar {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+.p-calendar{
+  display: flex !important;
+}
+
+.p-datepicker{
+  flex: 1 !important;
+  border: none !important;
+}
+
+.tableheadercell{
+  text-align: center !important;
+}
+
+.p-datepicker table > thead > tr > th  {
+  text-align: center !important;
+}
+
+/* BURCARPAGINADO */
+
+
+/* Base styles */
+
+.buscar-paginado__btnpaginado{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  gap: 1rem;
+  padding: 10px 0px;
+}
+
+.buscar-paginado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #333;
+  padding: 10px 0;
+  flex-wrap: wrap-reverse;
+  gap: 1rem;
+}
+
+.buscar-paginado__prev,
+.buscar-paginado__page,
+.buscar-paginado__go-to {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  gap: 1rem;
+}
+
+
+.buscar-paginado__btn-container{
+  flex: 1;
+}
+
+.buscar-paginado__input{
+  width: 75px;
+  height: 8px;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+}
+
+.buscar-paginado__prev:hover,
+.buscar-paginado__page:hover,
+.buscar-paginado__go-to:hover {
+  cursor: pointer;
+}
+
+.buscar-paginado__text {
+  margin: 0;
+}
+
+.buscar-paginado__text img {
+  width: 24px;
+}
+
+.buscar-paginado__pages {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.buscar-paginado__page {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buscar-paginado__page--highlight {
+  background-color: #001529;
+  color: #fff;
+}
+
+.buscar-paginado__page--start,
+.buscar-paginado__page--end {
+  font-weight: bold;
+}
+
+
+.buscar-paginado__page--disabled {
+  color: #ccc;
+  cursor: not-allowed;
   
-  .buscarnoticias__input {
-    padding: 10px;
-    width: 200px;
-    font-size: 16px;
-    flex: 1;
+}
+
+
+/* Absolute positioning of menu-bar */
+.menu-bar {
+  position: absolute;
+  bottom: 100%; /* 10px from the top of the nearest positioned ancestor */
+  right: 0; /* 10px from the left of the nearest positioned ancestor */
+  z-index: 1; /* Ensures it stays above other content */
+  background-color: white; /* Background for better visibility */
+  border-radius: 8px; /* Optional: rounded corners for the menu */
+  border: 1px solid lightgray;/* Optional: shadow for better visibility */
+}
+
+/* Make sure the container has a relative position to act as the positioning reference */
+.menu-bar__container {
+  position: relative; /* You can apply this to the parent of the menu-bar to control its position */
+}
+
+/* Menu item styles */
+.menu-bar__items {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-bar__item {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.menu-bar__item:hover {
+  background-color: #f0f0f0;
+}
+
+.menu-bar__item-icon {
+  margin-right: 10px;
+}
+
+.menu-bar__item-label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.menu-bar-mobile__items{
+  display: none;
+}
+
+.tag-selected{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  flex-direction: column;
+  padding: 0px 0px 2px 0px;
+}
+
+.tag-selected-categorias,
+.tag-selected-tags
+{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 28px;
+}
+
+.tag-selected-categorias__item{
+  border: 1px solid lightgray;
+  font-size: 10px;
+  padding: 3px 6px 3px 3px;
+  border-radius: 0.25rem;
+}
+
+.tag-selected-categorias__item img{
+  padding-inline: 4px;
+}
+
+/* Element for pagination buttons (tag-paginado) */
+.tag-selected__paginado {
+    background: none;
     border: 1px solid lightgray;
-    border-radius: 6px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0px 6px;
+}
+
+.tag-selected__paginado-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Element for group tags (tag-group) */
+.tag-selected__group {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 4px;
+  border: 1px solid white;
+  transition: all 0.2s ease; /* Smooth transition */
+
+}
+
+.tag-selected__group:hover {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+}
+
+
+.tag-selected__group-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.tag-selected__group-name {
+    font-size: 14px;
+}
+
+@media (max-width: 1023.98px) {
+
+  .categorias-modal__overlay{
+    display: none;
+  }
+
+
+  .calendar-modal-mobile{
+    display: block;
+  }
+
+  .p-datepicker-group{
+    font-size: larger !important;
+  }
+
+
+  .p-datepicker table > thead > tr > th {
+    font-size: small !important;
+  }
+
+  .p-datepicker table td {
+      font-size: small !important;
+  }
+
+  .p-datepicker {
+      padding: 0px !important;
+      margin: 0px !important;
+  }
+
+  .categorias-modal-mobile__close-btndiv{
+    width: 100%;
+    padding: 2rem 0px 0.5rem 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .buscarnoticias-mobile__button{
+    width: 75%;
+  }
+
+  .desktop-view {
+    display: none;
   }
   
-  .buscarnoticias__button {
+  .mobile-view {
+    display: inline-block;
+  }
+
+  .categorias-modal-mobile {
+    max-height: 90vh;  /* or any appropriate value */
+  }
+
+  .categorias-modal-mobile__item-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 50dvh;  /* Adjust if needed */
+  }
+
+  .categorias-modal-mobile__item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .categorias-modal-mobile__tags-selected {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  .categorias-modal-mobile__tags-title {
+    font-size: 18px;
+    font-weight: bolder;
+    text-align: center;
+  }
+
+  .categorias-modal-mobile__tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .categorias-modal-mobile__tag {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+  }
+
+  .categorias-modal-mobile__btn-categorias,
+  .categorias-modal-mobile__btn-buscar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .categorias-modal-mobile__btn {
+    padding: 4px 20px;
+    border: 1px solid lightgray;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+
+  .categorias-modal-mobile__btn-search {
     padding: 10px 15px;
     font-size: 16px;
-    background-color: gray;
+    background-color: #001529;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 10px;
+    border: 1px solid lightgray;
   }
-  
-  .buscarnoticias__list {
+
+  .categorias-modal-mobile__btncarousel{
+    padding: 1px 12px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    margin: 0 10px;
+  }
+
+  .categorias-modal-mobile__btncarousel-img{
+    display: block;
+    width: 24px;
+  }
+
+  .categorias-modal-mobile__btn:hover {
+    background-color: #0056b3;
+  }
+
+  .tags-displaynone, .tooltip-container, .tooltip, .menu-bar{
+    display: none;
+  }
+
+
+  .menu-bar-mobile__items{
     display: flex;
+    flex-direction: column;
+  }
+
+  .menu-bar-mobile__item{
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px; /* Add space between the items */
-    padding: 10px 0px 10px 0px;
+    flex-direction: row-reverse;
+    padding: 10px 4px;
+    gap: 1rem;
+
+  }
+
+  .menu-bar-mobile__item-icon{
+    width: 24px;
+  }
+
+  .menu-bar-mobile__item-label{
+    font-size: small;
+    font-weight: bold;
+  }
+
+}
+@media (max-width: 1023.98px) {
+
+  .mobile-only {
+    display: none !important;
+  }
 }
 
-.buscarnoticias__item {
-    min-width: 50px; /* You can adjust the width depending on how many items you want per row */
-    box-sizing: border-box; /* Ensure padding and border are included in the width calculation */
-    background-color: white; /* Add background to distinguish items */
-    padding: 4px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 1rem;
+/* Hide mobile-only on screens above 1023.98px */
+@media (min-width: 1024px) {
+  .larger-only {
+    display: none !important;
+  }
 }
 
-.buscarnoticias__item:hover {
-    background-color: whitesmoke; /* Optional: Add hover effect */
-    cursor: pointer;
+.post-categories,
+.post-tags {
+  margin-top: 8px;
+  font-size: 0.9em;
+  color: #555;
 }
 
-.buscarnoticias__item:focus {
-    background-color: whitesmoke; /* Optional: Add hover effect */
-    cursor: pointer;
+.post-categories strong,
+.post-tags strong {
+  color: #333;
 }
 
-.buscarnoticias__container{
-    min-height: 60vh;
+
+.buscar-paginado__btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buscar-paginado__btn-container button,
+.buscar-paginado__btn-container span
+{
+  cursor: pointer;
+  padding-inline: 10px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  padding: 3px 12px;
+  text-align: center;
+}
+
+.buscar-paginado__btn-container button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.fechas-seleccionada{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+}
+
+.fechas-seleccionada__small{
+  font-size: 16px;
+}
+
+.fechas-seleccionada__p{
+  font-size: 12px;
+  font-weight: 600;
+  color: grey;
+}
+
+.active-border {
+  border-bottom: 1px solid #001529;
+}
+
+.buscarcontenido-noencontrado{
+  min-height: 60dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  color: gray;
+  font-size: medium;
+  font-weight: 600;
 }

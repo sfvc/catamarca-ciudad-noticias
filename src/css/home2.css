@@ -21,7 +21,7 @@
     border: 1px solid #ccc;
     list-style: none;
     margin: 0;
-    z-index: 2;
+    z-index: 1;
     top:75px;
     right:0px;
 }
@@ -214,6 +214,12 @@ button, input{all: unset;}
     display: none;
 }
 
+.header__btns{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-direction: row-reverse;
+}
 
 .header__displaymobile {
     display: none;     /* Prevent content from overflowing */
@@ -307,7 +313,7 @@ button, input{all: unset;}
         left: 0;                 /* Align at the left */
         background-color: #000000be; /* Optional: semi-transparent black background */
         flex-direction: column;  /* Stack items vertically */
-        z-index: 12;             /* Ensure this element is on top of others */
+        z-index: 0;             /* Ensure this element is on top of others */
         overflow: hidden;        /* Prevent content from overflowing */
     }
     

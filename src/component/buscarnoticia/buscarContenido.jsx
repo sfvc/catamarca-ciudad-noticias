@@ -1,23 +1,17 @@
 import React from "react";
-import { useQuery, QueryClient, QueryClientProvider } from "react-query";
+import { useQuery } from "react-query";
 import axios from "axios";
 
-// Initialize the QueryClient
-const queryClient = new QueryClient();
-
-const NoticiasHome = ({ filter, searchTerm }) => {
+const BuscarContenido = ({ filter, searchTerm }) => {
   const imageURL = "https://archivos-cc.sfo3.digitaloceanspaces.com/";
 
-  // Function to fetch posts
   const fetchPosts = async () => {
     const response = await axios.get("https://noti.cc.gob.ar/api/posts");
-    return response.data; // Return the entire response object
+    return response.data; // The entire response object
   };
 
-  // Use useQuery hook to fetch data
   const { data, error, isLoading } = useQuery("posts", fetchPosts);
 
-  // Handle loading and error states
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -45,11 +39,16 @@ const NoticiasHome = ({ filter, searchTerm }) => {
                 src={`${imageURL}${news.image}`}
                 alt={news.title}
               />
-              <div className="panel-body home-new m-b-1">
+              <div className="panel-body home-new">
                 <h3 className="home-new__h3">{news.title}</h3>
-                <div className="icon-arrow-right text-primary">
-                  <i className="fa fa-arrow-right"></i>
-                </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                      <small style={{color:"gray"}}>10/10/2010</small>
+                        <img
+                            style={{ width: 36 }}
+                            src="/images/buscarnoticias/arrowright.svg"
+                            alt=""
+                        />
+                    </div>
               </div>
             </a>
           </div>
@@ -59,12 +58,4 @@ const NoticiasHome = ({ filter, searchTerm }) => {
   );
 };
 
-const NoticiasHomeWithQueryClient = (props) => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <NoticiasHome {...props} />
-    </QueryClientProvider>
-  );
-};
-
-export default NoticiasHomeWithQueryClient;
+export default BuscarContenido;

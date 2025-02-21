@@ -1,18 +1,18 @@
-import { QueryClient, QueryClientProvider } from "react-query"; // Import React Query dependencies
-import Header from "component/common/header";
-import HomePage from "component/home";
-import Footer from "component/common/footer";
+import React, { useEffect } from 'react';
+import AccessBtn from 'component/common/accessBtn';
+import AccessProvider from 'component/common/accessProvider';
+import LineaGuia from 'component/common/accessComponents/lineaGuia';
 
-const App = () => {
-    const queryClient = new QueryClient(); // Initialize React Query client
-
-    return (
-        <QueryClientProvider client={queryClient}>
-            <Header />
-                <HomePage />
-            <Footer />
-        </QueryClientProvider>
-    );
-}
+const App = ({ children }) => {
+  return (
+    <AccessProvider>
+      <div>
+        <AccessBtn />
+      </div>
+      {children}
+      <LineaGuia/>
+    </AccessProvider>
+  );
+};
 
 export default App;

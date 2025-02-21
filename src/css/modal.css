@@ -1,97 +1,105 @@
-/* General modal styles */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100dvw;
-    height: 100dvh;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    z-index: 9;
-    display: flex;
-    align-items: end; /* Centers the modal content */
-    justify-content: center;
-    overflow: hidden; /* Prevent scroll on modal container */
+
+.modalHeaderMobile{
+    display: none;
 }
 
-/* Disable scrolling on body when modal is open */
-body.modal-open {
-    overflow: hidden; /* Disable body scroll */
+@media (max-width: 1023px){
+    /* General modal styles */
+    .modal{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100dvw;
+        height: 100dvh;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        z-index: 2;
+        display: flex;
+        align-items: end; /* Centers the modal content */
+        justify-content: center;
+        overflow: hidden !important; /* Prevent scroll on modal container */
+    }
+    
+    /* Disable scrolling on body when modal is open */
+    .modal-open {
+        overflow: hidden !important; /* Disable body scroll */
+    }
+
+    .modalHeaderMobile {
+        position: relative;
+        width: 100dvw; /* Ensure it takes up full width */
+        max-height: 97.5vh; /* 90% of viewport height */
+        background-color: white;
+        border-radius: 1rem 1rem 0px 0px; /* Optional: rounded corners */
+        box-sizing: border-box; /* Ensure padding and borders are accounted for in dimensions */
+        overflow: auto; /* Ensure content doesn't overflow within modal */
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden !important;
+        min-height: 35vh;
+        padding-bottom: 2rem;
+    }
+    
+    
+    .modal__cerrarbarra {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-block: 12px;
+        background-color: white;
+    }
+    
+    .modal__cerrarbarra-icon{
+        width: 25%;
+        height: 6px;
+        border-radius: 1rem;
+        background-color: lightgray;
+    }
+    
+    .modalHeaderMobile__container{
+        width: 100%;
+        flex: 1;
+        padding-top: 1rem;
+    }
+    
+    .header-mobile-nav__content{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    
+    .header-mobile-nav__list {
+        list-style: none; /* Remove default list styling */
+        padding: 0;
+        margin: 0;
+        width: 100%; /* Ensure it takes full width */
+    }
+    
+    .header-mobile-nav__item {
+        width: 100%; /* Each item takes full width */
+    }
+    
+    .header-mobile-nav__link {
+        display: flex; /* Make the anchor tags behave like block-level elements */
+        width: 100%; /* Ensure the link fills the entire item */
+        padding: 12px; /* Add padding for clickability */
+        text-decoration: none; /* Remove underline */
+        background-color: white; /* Optional background color */
+        box-sizing: border-box; /* Ensure padding and borders are included in width/height calculations */
+        font-size: 16px;
+        justify-content: space-between;
+    }
+    
+    .header-mobile-nav__link:hover {
+        text-decoration: none;
+        color: #001529;
+    }
 }
 
 /* Header for mobile modal */
-.modalHeaderMobile {
-    position: relative;
-    width: 100%; /* Ensure it takes up full width */
-    max-height: 97.5vh; /* 90% of viewport height */
-    background-color: white;
-    border-radius: 1rem 1rem 0px 0px; /* Optional: rounded corners */
-    box-sizing: border-box; /* Ensure padding and borders are accounted for in dimensions */
-    overflow: auto; /* Ensure content doesn't overflow within modal */
-    z-index: 11;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    min-height: 35vh;
-    padding-bottom: 2rem;
-}
-
-
-.modal__cerrarbarra {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-block: 12px;
-    background-color: white;
-}
-
-.modal__cerrarbarra-icon{
-    width: 25%;
-    height: 6px;
-    border-radius: 1rem;
-    background-color: lightgray;
-}
-
-.modalHeaderMobile__container{
-    width: 100%;
-    flex: 1;
-    padding-top: 1rem;
-}
-
-.header-mobile-nav__content{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    flex-direction: column;
-}
-
-.header-mobile-nav__list {
-    list-style: none; /* Remove default list styling */
-    padding: 0;
-    margin: 0;
-    width: 100%; /* Ensure it takes full width */
-}
-
-.header-mobile-nav__item {
-    width: 100%; /* Each item takes full width */
-}
-
-.header-mobile-nav__link {
-    display: flex; /* Make the anchor tags behave like block-level elements */
-    width: 100%; /* Ensure the link fills the entire item */
-    padding: 12px; /* Add padding for clickability */
-    text-decoration: none; /* Remove underline */
-    background-color: white; /* Optional background color */
-    box-sizing: border-box; /* Ensure padding and borders are included in width/height calculations */
-    font-size: 16px;
-    justify-content: space-between;
-}
-
-.header-mobile-nav__link:hover {
-    text-decoration: none;
-    color: #001529;
-}
