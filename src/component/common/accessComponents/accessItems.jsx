@@ -1,9 +1,9 @@
-const AccessItems = ({label, onClick, titulo }) => {
+const AccessItems = ({label, onClick, titulo, img, alt, itemMobile, itemDesk }) => {
   return (
-    <li className="accessItem" onClick={onClick}>
+    <li className={`${itemMobile} ${itemDesk}`} onClick={onClick}>
+        <img src={img} alt={alt} />
         <p>{titulo}</p>
         <small>{label}</small>
-        <img src="" alt="" />
     </li>
   );
 };

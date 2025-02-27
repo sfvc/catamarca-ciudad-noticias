@@ -3,6 +3,10 @@
     display: none;
 }
 
+.modal-open {
+    overflow: hidden !important; /* Disable body scroll */
+}
+
 @media (max-width: 1023px){
     /* General modal styles */
     .modal{
@@ -21,11 +25,6 @@
         overflow: hidden !important; /* Prevent scroll on modal container */
     }
     
-    /* Disable scrolling on body when modal is open */
-    .modal-open {
-        overflow: hidden !important; /* Disable body scroll */
-    }
-
     .modalHeaderMobile {
         position: relative;
         width: 100dvw; /* Ensure it takes up full width */
@@ -103,3 +102,18 @@
 }
 
 /* Header for mobile modal */
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    z-index: 2;
+    display: flex;
+    align-items: end; /* Centers the modal content */
+    justify-content: center;
+    overflow: hidden !important; /* Prevent scroll on modal container */
+}

@@ -1,5 +1,6 @@
 @import url(css/noticias.css);
 @import url(css/home.css);
+@import url(css/toolbar.css);
 @import url(css/home2.css);
 @import url(css/modal.css);
 @import url(css/darkMode.css);
@@ -134,3 +135,6 @@ section{
     padding: 10px !important;
 }
 
+.bgtest{
+    background-color: red;
+}

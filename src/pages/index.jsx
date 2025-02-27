@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import AccessBtn from 'component/common/accessBtn';
 import AccessProvider from 'component/common/accessProvider';
 import LineaGuia from 'component/common/accessComponents/lineaGuia';
+import ToolBar from 'component/common/toolBar';
 
 const App = ({ children }) => {
   return (
     <AccessProvider>
       <div>
-        <AccessBtn />
+        <ToolBar />
       </div>
       {children}
       <LineaGuia/>

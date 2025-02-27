@@ -2,14 +2,24 @@ import { useEffect } from 'react';
 
 // Modal Component
 const Modal = ({ isOpen, onClose, children }) => {
-    // If modal is not open, return null
+    useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add('modal-open');
+        } else {
+            document.body.classList.remove('modal-open');
+        }
+
+        // Cleanup function to remove class when component unmounts
+        return () => {
+            document.body.classList.remove('modal-open');
+        };
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
-    // Disable background scroll when modal is open
-
     return (
-        <div className="modal">
-                {children}
+        <div className="modal" onClick={onClose}>
+            {children}
         </div>
     );
 };

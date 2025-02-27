@@ -190,28 +190,13 @@
 
   }
   
-  .div2 {
-    grid-area: 5 / 1 / 7 / 3;
-    background-image: url('/images/parquejumeal.webp');
-  }
-  
-  .div3 {
-    grid-area: 5 / 3 / 7 / 5;
-    background-image: url('/images/parquejumeal.webp');
-  }
-  
-  .div4 {
-    grid-area: 5 / 5 / 7 / 7;
-    background-image: url('/images/parquejumeal.webp');
-  }
-  
   .div5 {
-    grid-area: 3 / 5 / 5 / 7;
+    grid-area: 4 / 5 / 7 / 7;
     background-image: url('/images/parquejumeal.webp');
   }
   
   .div6 {
-    grid-area: 1 / 5 / 3 / 7;
+    grid-area: 4 / 5 / 1 / 7;
     background-image: url('/images/parquejumeal.webp');
   }
   
@@ -252,23 +237,8 @@
       
     }
   
-    .div2 {
-      grid-area: 3 / 1 / 4 / 2; /* Occupy first column in row 3 */
-      background-image: url('/images/parquejumeal.webp');
-    }
-  
-    .div3 {
-      grid-area: 3 / 2 / 4 / 3; /* Occupy second column in row 3 */
-      background-image: url('/images/parquejumeal.webp');
-    }
-  
-    .div4 {
-      grid-area: 4 / 1 / 5 / 2; /* Occupy first column in row 4 */
-      background-image: url('/images/parquejumeal.webp');
-    }
-  
     .div5 {
-      grid-area: 4 / 2 / 5 / 3; /* Occupy second column in row 4 */
+      grid-area: 4 / 1 / 5 / 3;
       background-image: url('/images/parquejumeal.webp');
     }
   

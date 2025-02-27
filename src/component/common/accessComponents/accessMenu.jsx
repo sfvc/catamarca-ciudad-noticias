@@ -5,7 +5,7 @@ import ModalMobile from '../modalMobile';
 import LineaGuia from './lineaGuia';
 import Modal from '../modal';
 
-const AccessMenu = ({ toggleMenu, clase, ul }) => {
+const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
   const {
     fontSize,
     increaseFontSize,
@@ -103,63 +103,96 @@ const AccessMenu = ({ toggleMenu, clase, ul }) => {
   return (
     <>
       <div className={`${clase}`} id="AccessItems">
-        <ul className={`${ul}`}>
-          <AccessItems
-            titulo={'Agregar tamaño fuente'}
-            icon="fa-text-height"
-            label="+16px"
-            onClick={increaseFontSize}
-          />
-          <AccessItems
-            titulo='Reducir Tamaño fuente'
-            icon="fa-text-height"
-            label="-16px"
-            onClick={decreaseFontSize}
-          />
-          
-          {/* Button for cycling through themes (default, high contrast, dark mode) */}
-          <AccessItems
-            titulo='Temas'
-            icon="fa-paint-brush"
-            label={
-              !highContrast && !darkMode
-                ? 'Activar Contraste Alto'
-                : highContrast && !darkMode
-                ? 'Activar Modo Oscuro'
-                : 'Restablecer Valores de Tema'
-            }
-            onClick={handleCycleTheme}
-          />
+          {showHeader && (
+            <div className="border-bottom-amarillo">
+              <div className='container'>
+                <button className="adaptabilidad-header__cerrar">
+                  <span></span>
+                </button>
+                <header className="adaptabilidad-header">
+                  <h5>Configuracion de adaptabilidad</h5>
+                  <img src="./images/logo-new-2020.png" alt="" width={124} />
+                </header>
+              </div>
+            </div>
+          )}
+          <div className="container">
+            <ul className={`${ul}`}>
+              <AccessItems
+                itemDesk={'accessItemDesk'}
+                itemMobile={'accessItem'}
+                img={'./images/twitter.svg'}
+                titulo={'Agregar tamaño fuente'}
+                icon="fa-text-height"
+                label="+16px"
+                onClick={increaseFontSize}
+              />
+              <AccessItems
+                itemDesk={'accessItemDesk'}
+                itemMobile={'accessItem'}
+                img={'./images/twitter.svg'}
+                titulo='Reducir Tamaño fuente'
+                icon="fa-text-height"
+                label="-16px"
+                onClick={decreaseFontSize}
+              />
+              
+              {/* Button for cycling through themes (default, high contrast, dark mode) */}
+              <AccessItems
+                itemDesk={'accessItemDesk'}
+                itemMobile={'accessItem'}
+                img={'./images/twitter.svg'}
+                titulo='Temas'
+                icon="fa-paint-brush"
+                label={
+                  !highContrast && !darkMode
+                    ? 'Activar Contraste Alto'
+                    : highContrast && !darkMode
+                    ? 'Activar Modo Oscuro'
+                    : 'Restablecer Valores de Tema'
+                }
+                onClick={handleCycleTheme}
+              />
 
-          <AccessItems
-            titulo='Dislexia'
-            icon="fa-font"
-            label={dyslexiaFont ? "Desactivar Fuente Dislexia" : "Activar Fuente Dislexia"}
-            onClick={toggleDyslexiaFont}
-          />
+              <AccessItems
+                itemDesk={'accessItemDesk'}
+                itemMobile={'accessItem'}
+                img={'./images/twitter.svg'}
+                titulo='Dislexia'
+                icon="fa-font"
+                label={dyslexiaFont ? "Desactivar Fuente Dislexia" : "Activar Fuente Dislexia"}
+                onClick={toggleDyslexiaFont}
+              />
 
-          <AccessItems
-            titulo='Daltonismo'
-            icon="fa-adjust"
-            label={getHueRotateLabel()}
-            onClick={handleCycleHueRotate}
-          />
+              <AccessItems
+                itemDesk={'accessItemDesk'}
+                itemMobile={'accessItem'}
+                img={'./images/twitter.svg'}
+                titulo='Daltonismo'
+                icon="fa-adjust"
+                label={getHueRotateLabel()}
+                onClick={handleCycleHueRotate}
+              />
 
-        <AccessItems
-          titulo='Linea de Guia'
-          icon="fa-eye"
-          label={lineaGuiaVisible ? 'Desactivar Linea Guia' : 'Activar Linea Guia'}
-          onClick={toggleLineaGuia}  // Toggle LineaGuia
-        />
-        
-        <LineaGuia isVisible={lineaGuiaVisible} /> 
+            <AccessItems
+              itemDesk={'accessItemDesk'}
+              itemMobile={'accessItem'}
+              img={'./images/twitter.svg'}
+              titulo='Linea de Guia'
+              icon="fa-eye"
+              label={lineaGuiaVisible ? 'Desactivar Linea Guia' : 'Activar Linea Guia'}
+              onClick={toggleLineaGuia}  // Toggle LineaGuia
+            />
+            
+            <LineaGuia isVisible={lineaGuiaVisible} /> 
 
-          
-          <div className='access-btn-reset-div'>
-            <button className="access-btn-reset-div__btn" onClick={resetSettings}>Restablecer</button>
+              
+            </ul>
           </div>
-        </ul>
-      </div>
+            <div className='access-btn-reset-div'>
+              <button className="access-btn-reset-div__btn" onClick={resetSettings}>Restablecer</button>
+            </div>
+        </div>
     </>
   );
 };

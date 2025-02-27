@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { dropdowns } from '../../data/header.json'; // Adjust the path as needed
-import AccessBtn from './accessBtn';
-import AccessProvider from './accessProvider';
 
 const HeaderLg = () => {
     const [dropdownOpen, setDropdownOpen] = useState({});

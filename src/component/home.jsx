@@ -15,11 +15,6 @@ const HomePage = () => {
                 <img src="/images/link.svg" alt="link icon" className="link-icon" />
 
             </a>
-            <a href="/news/1" className="div4 grid-item"> 
-                <h3 className="home-page__news-title">Noticia 3</h3>
-                <p className="home-page__news-description ">Descripción breve de la noticia 3.</p>    
-                <img src="/images/link.svg" alt="link icon" className="link-icon" />
-            </a>
             <a href="/news/1" className="div5 grid-item"> 
                 <h3 className="home-page__news-title">Noticia 3</h3>
                 <p className="home-page__news-description ">Descripción breve de la noticia 3.</p>    
