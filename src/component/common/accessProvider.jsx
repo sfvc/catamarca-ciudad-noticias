@@ -18,7 +18,7 @@ const resetLocalStorage = () => {
   localStorage.removeItem('hueRotate90');
   localStorage.removeItem('hueRotateQuarterTurn');
   localStorage.removeItem('hueRotatePi');
-  localStorage.removeItem('lineaGuiaVisible');  // Added lineaGuiaVisible to reset
+  localStorage.removeItem('lineaGuiaVisible');  // Reset lineaGuiaVisible
 };
 
 const AccessProvider = ({ children }) => {
@@ -44,7 +44,7 @@ const AccessProvider = ({ children }) => {
   const toggleLineaGuia = () => {
     setLineaGuiaVisible(prevState => {
       const newValue = !prevState;
-      saveToLocalStorage('lineaGuiaVisible', newValue);  // Save visibility state
+      saveToLocalStorage('lineaGuiaVisible', newValue);  // Save visibility state to localStorage
       return newValue;
     });
   };
@@ -70,7 +70,7 @@ const AccessProvider = ({ children }) => {
     setHueRotateQuarterTurn(false);
     setHueRotatePi(false);
     setLineaGuiaVisible(false);  // Reset LineaGuia visibility
-    resetLocalStorage();
+    resetLocalStorage();  // Reset localStorage for all settings
   };
 
   // Increase or decrease font size and save to localStorage
@@ -114,7 +114,14 @@ const AccessProvider = ({ children }) => {
   
     // Apply accessibility styles
     style.filter = filterStyle.trim();
-    style.fontFamily = dyslexiaFont ? '"Comic Sans MS", sans-serif' : '';
+    
+    // Apply dyslexia font if enabled
+    if (dyslexiaFont) {
+      document.body.style.fontFamily = '"Open Dyslexic", sans-serif';
+    } else {
+      document.body.style.fontFamily = '';
+    }
+
     style.transition = 'background-color 0.3s ease, color 0.3s ease';
   
     // Toggle dark mode styles by adding/removing a class on the documentElement

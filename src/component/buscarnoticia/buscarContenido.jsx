@@ -2,14 +2,16 @@ import React from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 
+// Define the fetchPosts function properly before using it in useQuery
+const fetchPosts = async () => {
+  const response = await axios.get("https://noti.cc.gob.ar/api/posts");
+  return response.data; // Make sure to return the data from the API
+};
+
 const BuscarContenido = ({ filter, searchTerm }) => {
   const imageURL = "https://archivos-cc.sfo3.digitaloceanspaces.com/";
 
-  const fetchPosts = async () => {
-    const response = await axios.get("https://noti.cc.gob.ar/api/posts");
-    return response.data; // The entire response object
-  };
-
+  // Call useQuery with the fetchPosts function
   const { data, error, isLoading } = useQuery("posts", fetchPosts);
 
   if (isLoading) {

@@ -7,9 +7,14 @@
 @import url(css/buscarnoticias.css);
 @import url(css/adaptabilidad.css);
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+/* In src/index.css or your global stylesheet (e.g., App.css) */
+@font-face {
+    font-family: 'OpenDyslexicRegular';
+    src:url(/fonts/OpenDyslex.woff);
+    font-style: normal;
+}
 
-
-*{
+* {
     font-family: 'Roboto', sans-serif !important;
     height: auto;
 }
@@ -20,14 +25,22 @@ body {
     background: white; /* Set body background to transparent */
     z-index: 0;
     height: auto;
-    color:black;
+    color: black;
+    font-family: 'Open Dyslexic', sans-serif !important;
+    font-size: 600;
 }
+
 
 html {
     scroll-behavior: smooth;
 }
+  
+/* button, a{
+    background-color: yellow !important;
+}
+   */
 
-/* Custom scrollbar (for WebKit browsers) */
+
 *::-webkit-scrollbar {
     width: 8px; /* Width of the scrollbar */
     background: transparent; /* Track background transparent */
@@ -135,6 +148,3 @@ section{
     padding: 10px !important;
 }
 
-.bgtest{
-    background-color: red;
-}

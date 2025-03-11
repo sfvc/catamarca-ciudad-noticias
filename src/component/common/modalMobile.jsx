@@ -52,7 +52,7 @@ const ModalMobile = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null; // Don't render the modal component until it is open
 
   return (
-    <Modal isOpen={isOpen} onClose={closeModal}>
+    <Modal clase={'modal'} isOpen={isOpen} onClose={closeModal}>
       <div
         className="modal-overlay"
         ref={overlayRef} // Reference the overlay for outside click detection

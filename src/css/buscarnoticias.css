@@ -19,6 +19,7 @@
   border: 1px solid #001529;
   color: white;
   border-radius: 0.25rem;
+  cursor: pointer;
 }
 
 .buscarnoticias__input-search{
@@ -36,6 +37,7 @@
   justify-content: space-between;
   width: 100%;
   padding: 6px 0px; 
+  position: relative;
 }
 
 .buscarnoticias__input{
@@ -45,7 +47,7 @@
 /* Overlay */
 .categorias-modal__overlay {
   position: absolute;
-  top: 23%;
+  top: 190px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -123,6 +125,7 @@
   display: inline-flex;
   justify-content: end;
   width: 100%;
+  gap: 10px;
 }
 
 .categorias-modal__close-btn:hover {
@@ -137,7 +140,8 @@
 }
 
 .categorias-modal__categorias2 button,
-.categorias-modal__btns button
+.categorias-modal__btns button,
+.calendar-modal__btns button
 {
   min-width: 75px;
   padding: 6px 12px;
@@ -154,7 +158,10 @@
 .categorias-modal__categorias2 button:active,
 .categorias-modal__btns button:hover,
 .categorias-modal__btns button:focus,
-.categorias-modal__btns button:active
+.categorias-modal__btns button:active,
+.calendar-modal__btns button:hover,
+.calendar-modal__btns button:focus,
+.calendar-modal__btns button:active
 {
   border: 1px solid lightgray;
   background-color: lightgray;
@@ -168,7 +175,7 @@
   display: flex;
   align-items: start;
   justify-content: space-between;
-  padding: 0px 10px;
+  padding: 10px;
   gap: 10px;
 }
 
@@ -683,4 +690,20 @@
   color: gray;
   font-size: medium;
   font-weight: 600;
+}
+
+.tag-selected-categorias__content{
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  gap: 10px;
+}
+
+.calendar-btn__restablecer{
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid lightgray;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
 }
