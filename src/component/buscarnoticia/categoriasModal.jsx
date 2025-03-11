@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TagSelected from './tagsSelected';
 
 const CategoriasModal = ({
@@ -16,6 +16,8 @@ const CategoriasModal = ({
   const [tags, setTags] = useState([]);
   const [searchTerm, setSearchTerm] = useState(''); // State for search term
 
+  const modalContentRef = useRef(null); // Ref to the modal content for detecting outside clicks
+
   // Fetch categories and tags from the JSON file
   useEffect(() => {
     fetch('/data/post.json')
@@ -30,6 +32,23 @@ const CategoriasModal = ({
         console.error('Error fetching the JSON file:', error);
       });
   }, []);
+
+  // Close the modal if the user clicks outside of the modal content
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (modalContentRef.current && !modalContentRef.current.contains(event.target)) {
+        onClose(); // Close the modal if clicked outside
+      }
+    };
+
+    // Add the event listener for click
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [onClose]);
 
   // Toggle category selection
   const handleCategoryClick = (category) => {
@@ -94,7 +113,7 @@ const CategoriasModal = ({
 
   return (
     <div className="categorias-modal__overlay container">
-      <div className="categorias-modal__content">
+      <div ref={modalContentRef} className="categorias-modal__content">
         <div className="categorias-modal__btns">
           <button
             className={`categorias-modal__toggle-btn ${isCategorySelected ? 'active' : ''}`}
@@ -110,16 +129,6 @@ const CategoriasModal = ({
           </button>
         </div>
 
-        {/* Display selected categories or tags */}
-        <TagSelected
-          selectedCategories={selectedCategories}
-          selectedTags={selectedTags}
-          onTagRemoveCategory={handleTagRemoveCategory}
-          onTagRemove={handleTagRemove}
-          onCategoryRemove={handleCategoryRemove} // Pass the category remove function to TagSelected
-        />
-
-        {/* Show categories or tags depending on selection */}
         {isCategorySelected ? (
           <ul className="categorias-modal__list">
             {filteredCategories.map((category, index) => (
@@ -159,11 +168,8 @@ const CategoriasModal = ({
             />
           </div>
           <div>
-            <button className="btn btn-danger" onClick={onRestart}>
+            <button className="buscarnoticias__input-btn" onClick={onRestart}>
               Restablecer
-            </button>
-            <button className="btn btn-danger" onClick={onClose}>
-              Guardar
             </button>
           </div>
         </div>

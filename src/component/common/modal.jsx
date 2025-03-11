@@ -1,27 +1,14 @@
-import { useEffect } from 'react';
+import React, { forwardRef } from 'react';
 
 // Modal Component
-const Modal = ({ isOpen, onClose, children }) => {
-    useEffect(() => {
-        if (isOpen) {
-            document.body.classList.add('modal-open');
-        } else {
-            document.body.classList.remove('modal-open');
-        }
-
-        // Cleanup function to remove class when component unmounts
-        return () => {
-            document.body.classList.remove('modal-open');
-        };
-    }, [isOpen]);
-
+const Modal = ({ isOpen, onClose, children, clase }, ref) => {
     if (!isOpen) return null;
 
     return (
-        <div className="modal" onClick={onClose}>
+        <div className={`${clase}`} onClick={onClose} ref={ref} >
             {children}
         </div>
     );
 };
 
-export default Modal;
+export default forwardRef(Modal);

@@ -5,10 +5,14 @@ import TagSelected from './tagsSelected';
 import { Modales } from './modales';
 import { ModalesMobile } from './modalesMobile';
 import Tooltip from 'component/common/tooltip';
+import BuscarContenido from './buscarContenido';
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const BuscarNoticias = () => {
   const [posts, setPosts] = useState([]);
-  const [allPosts, setAllPosts] = useState([]); // Save all posts for resetting
+  const [allPosts, setAllPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [inputPage, setInputPage] = useState('');
   const [postsPerPage, setPostsPerPage] = useState(6);
@@ -25,18 +29,17 @@ const BuscarNoticias = () => {
   const [isModalCategoriesMobileOpen, setIsModalCategoriesMobileOpen] = useState(false);
   const [isModalCalendarMobileOpen, setIsModalCalendarMobileOpen] = useState(false);
   const [isMenuBarMobileOpen, setIsMenuBarMobileOpen] = useState(false);
-  // Mobile Modal Logic
+
   const openMobileModal = () => setIsMobileModalOpen(true);
   const closeMobileModal = () => setIsMobileModalOpen(false);
-  // Toggle menu bar logic
+  
   const toggleMenuBar = () => setMenuOpen(!menuOpen);
-  const toggleMenuBarMobile = () => {
-    setIsMenuBarMobileOpen(prevState => !prevState); // Toggle the state of the menu bar
-  };
+  const toggleMenuBarMobile = () => setIsMenuBarMobileOpen(prevState => !prevState);
+
   const [isMobile, setIsMobile] = useState(false);
 
-  const [isAscending, setIsAscending] = useState(true); // true for ascending, false for descending
-  const [isLast30Days, setIsLast30Days] = useState(false); // Track whether the "Last 30 Days" filter is active
+  const [isAscending, setIsAscending] = useState(true); 
+  const [isLast30Days, setIsLast30Days] = useState(false); 
 
   useEffect(() => {
     fetch('/data/post.json')
@@ -44,29 +47,41 @@ const BuscarNoticias = () => {
       .then((data) => {
         if (Array.isArray(data.data)) {
           setPosts(data.data);
-          setAllPosts(data.data); // Save all posts for resetting
+          setAllPosts(data.data); 
         } else {
-          console.error('Error: "data" no es un array');
+          console.error('Error: "data" is not an array');
         }
       })
-      .catch((error) => console.error('Error al cargar los posts', error));
+      .catch((error) => console.error('Error loading posts', error));
   }, []);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
-  // Apply filtering logic based on search, category, tags, and date range
   const filteredPosts = posts.filter((news) => {
+    // Check if the title matches the search term
     const matchesSearchTerm = news.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategories.length > 0 ? selectedCategories.some((category) => news.categories.includes(category)) : true;
-    const matchesTags = selectedTags.length > 0 ? selectedTags.some((tag) => news.tags.includes(tag)) : true;
-    const matchesDateRange = dateRange ? 
-      new Date(news.date) >= new Date(dateRange.startDate) && new Date(news.date) <= new Date(dateRange.endDate) : true;
-
+  
+    // Match any of the selected categories
+    const matchesCategory = Array.isArray(selectedCategories) && selectedCategories.length > 0 
+      ? selectedCategories.every((category) => news.categories.includes(category))  // Accumulate by checking if all selected categories are matched
+      : true; // If no categories are selected, show all posts
+  
+    // Match any of the selected tags
+    const matchesTags = Array.isArray(selectedTags) && selectedTags.length > 0 
+      ? selectedTags.every((tag) => news.tags.includes(tag))  // Accumulate by checking if all selected tags are matched
+      : true;  // If no tags are selected, show all posts
+  
+    // Check if the post's date is within the selected date range
+    const matchesDateRange = dateRange 
+      ? new Date(news.date) >= new Date(dateRange.startDate) && new Date(news.date) <= new Date(dateRange.endDate) 
+      : true;  // If no date range is selected, show all posts
+  
     return matchesSearchTerm && matchesCategory && matchesTags && matchesDateRange;
   });
+  
 
-  // Sort posts based on the order selected
+
   const sortedPosts = [...filteredPosts].sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
@@ -83,14 +98,26 @@ const BuscarNoticias = () => {
     }
   };
 
-  const handleCategorySelect = (categories) => setSelectedCategories(categories);
-  const handleTagSelect = (tags) => setSelectedTags(tags);
+  const handleCategorySelect = (category) => {
+    setSelectedCategories((prev) => {
+      const updatedCategories = [...prev, category];
+      console.log('Updated Categories:', updatedCategories);  // Log immediately after update
+      return updatedCategories;
+    });
+  };
+  
+  const handleTagSelect = (tag) => {
+    setSelectedTags((prev) => {
+      const updatedTags = [...prev, tag];
+      console.log('Updated Tags:', updatedTags);  // Log immediately after update
+      return updatedTags;
+    });
+  };
   const handleCategoryRemove = (category) => {
     setSelectedCategories(prev => prev.filter(item => item !== category));
   };
   const handleTagRemove = (tag) => {
     setSelectedTags(prev => prev.filter(item => item !== tag));
-    setSelectedCategories(prev => prev.filter(category => !category.includes(tag)));
   };
 
   const handleDateSelect = (dates) => {
@@ -117,188 +144,187 @@ const BuscarNoticias = () => {
     setSearchTerm(event.target.value);
   };
 
-  // Calculate the date 30 days ago
   const getLast30Days = () => {
     const today = new Date();
     const last30Days = new Date(today.setDate(today.getDate() - 30));
     return last30Days;
   };
 
-  // Filter posts by the last 30 days
   const filterPostsLast30Days = () => {
     const last30Days = getLast30Days();
     return allPosts.filter((news) => new Date(news.date) >= last30Days);
   };
 
-  // Function to handle the "30 Dias" tooltip click
   const handle30DiasClick = () => {
     if (isLast30Days) {
-      // If "Last 30 Days" is active, reset to show all posts
       setPosts(allPosts);
     } else {
-      // Filter posts for the last 30 days
       setPosts(filterPostsLast30Days());
     }
-    setIsLast30Days(!isLast30Days); // Toggle the filter state
+    setIsLast30Days(!isLast30Days); 
   };
 
-  // Function to toggle between "first to last" and "last to first"
   const setPrimerUltima = () => {
-    setIsAscending(!isAscending); // Toggle the order
+    setIsAscending(!isAscending); 
   };
 
   useEffect(() => {
     const handleResize = () => {
-      // Just update state with current window width (no condition)
       setIsMobile(window.innerWidth);
     };
-  
-    // Initial check for window size
     handleResize();
-  
-    // Add event listener on window resize
     window.addEventListener('resize', handleResize);
-  
-    // Clean up event listener
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    console.log('selectedCategories (after update):', selectedCategories);
+    console.log('selectedTags (after update):', selectedTags);
+  }, [selectedCategories, selectedTags]);
   
 
   return (
-    <div className='container' style={{ minHeight: '60vh' }}>
-      <div className='buscarnoticias__input-items'>
-        <div className='buscarnoticias__input-search'>
-          <input
-            className='buscarnoticias__input'
-            type="text"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            placeholder="Search for news..."
+    <QueryClientProvider client={queryClient}>
+      <div className='container' style={{ minHeight: '60vh' }}>
+        <div className='buscarnoticias__input-items'>
+          <div className='buscarnoticias__input-search'>
+            <input
+              className='buscarnoticias__input'
+              type="text"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder="Search for news..."
+            />
+            <button className='buscarnoticias__input-btn'>Buscar</button>
+          </div>
+          <div className="buscarnoticias__input-btn-continer">
+            <Tooltip clase={`${isAscending ? '' : 'active-border'}`} text={'Primer / Ultima'}>
+              <img className="buscarnoticias__input-btn-img" onClick={setPrimerUltima} src="/images/buscarnoticias/lastweek.svg" alt="" width={24} />
+            </Tooltip>
+            <Tooltip clase={`${isLast30Days ? 'active-border' : ''}`} text={'30 Dias'}>
+              <img className="buscarnoticias__input-btn-img" onClick={handle30DiasClick} src="/images/buscarnoticias/lastmonth.svg" alt="" width={24} />
+            </Tooltip>
+            <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'mobile-only' : ''}`} text={'Categorias'}>
+              <img className="buscarnoticias__input-btn-img" onClick={() => setIsModalOpen(true)} src="/images/buscarnoticias/categorias.svg" alt="" width={24} />
+            </Tooltip>
+
+            <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'mobile-only' : ''}`} text={'Calendario'}>
+              <img
+                className="buscarnoticias__input-btn-img"
+                onClick={() => setIsModalCalendarOpen(true)}
+                src="/images/buscarnoticias/calendar.svg"
+                alt=""
+                width={24}
+              />
+            </Tooltip>
+
+            <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'larger-only' : ''}`} text={'Categorias Mobile'}>
+              <img
+                className={`buscarnoticias__input-btn-img`}
+                onClick={openMobileModal}
+                src="/images/buscarnoticias/categorias.svg"
+                alt=""
+                width={24}
+              />
+            </Tooltip>
+
+            <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'larger-only' : ''}`} text={'Calendario Mobile'}>
+              <img
+                className={`buscarnoticias__input-btn-img`}
+                onClick={() => setIsModalCalendarMobileOpen(true)}
+                src="/images/buscarnoticias/calendar.svg"
+                alt=""
+                width={24}
+              />
+            </Tooltip>
+          </div>
+          <TagSelected
+            allCategories={[...new Set(allPosts.flatMap(post => post.categories))]}
+            allTags={[...new Set(allPosts.flatMap(post => post.tags))]}
+            selectedCategories={selectedCategories}
+            selectedTags={selectedTags}
+            onTagSelect={handleTagSelect}
+            onCategorySelect={handleCategorySelect}
+            onTagRemove={handleTagRemove}
+            onCategoryRemove={handleCategoryRemove}
           />
-          <button className='buscarnoticias__input-btn'>Buscar</button>
         </div>
-        <div className="buscarnoticias__input-btn-continer">
-          <Tooltip clase={`${isAscending ? 'active-border' : ''}`} text={'Primer / Ultima'}>
-            <img className="buscarnoticias__input-btn-img" onClick={setPrimerUltima} src="/images/buscarnoticias/lastweek.svg" alt="" width={24} />
-          </Tooltip>
-          <Tooltip clase={`${isLast30Days ? 'active-border' : ''}`} text={'30 Dias'}>
-            <img className="buscarnoticias__input-btn-img" onClick={handle30DiasClick} src="/images/buscarnoticias/lastmonth.svg" alt="" width={24} />
-          </Tooltip>
-          <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'mobile-only' : ''}`} text={'Categorias'}>
-            <img className="buscarnoticias__input-btn-img" onClick={() => setIsModalOpen(true)} src="/images/buscarnoticias/categorias.svg" alt="" width={24} />
-          </Tooltip>
 
-          <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'mobile-only' : ''}`} text={'Calendario'}>
-            <img
-              className="buscarnoticias__input-btn-img"
-              onClick={() => setIsModalCalendarOpen(true)}
-              src="/images/buscarnoticias/calendar.svg"
-              alt=""
-              width={24}
-            />
-          </Tooltip>
+        <BuscarContenidoTest
+          searchTerm={searchTerm}
+          selectedCategory={selectedCategories}
+          selectedTags={selectedTags}
+          first={currentPage}
+          rows={postsPerPage}
+          dateRange={dateRange}
+          sortedPosts={sortedPosts}  
+        />
 
-          <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'larger-only' : ''}`} text={'Categorias Mobile'}>
-            <img
-              className={`buscarnoticias__input-btn-img`}
-              onClick={openMobileModal}
-              src="/images/buscarnoticias/categorias.svg"
-              alt=""
-              width={24}
-            />
-          </Tooltip>
-
-          <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'larger-only' : ''}`} text={'Calendario Mobile'}>
-            <img
-              className={`buscarnoticias__input-btn-img`}
-              onClick={() => setIsModalCalendarMobileOpen(true)} // Open calendar modal for mobile
-              src="/images/buscarnoticias/calendar.svg"
-              alt=""
-              width={24}
-            />
-          </Tooltip>
+        <div className='buscar-paginado__btnpaginado menu-bar__container'>
+          <BuscarPaginado
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={paginate}
+            onInputChange={handleInputChange}
+          />
+          <button 
+            className='buscar-paginado__input' 
+            onClick={() => setMenuOpen(!menuOpen) || toggleMenuBarMobile(true)}
+          >
+          {postsPerPage}
+          </button>
+          <Modales
+            menuOpen={menuOpen}
+            handleRowsChange={handleRowsChange}
+          />
         </div>
-        <TagSelected
+
+        {/* Modales */}
+        <Modales
           selectedCategories={selectedCategories}
           selectedTags={selectedTags}
-          onCategoryRemove={handleCategoryRemove}
-          onTagRemove={handleTagRemove}
-        />
-      </div>
-
-      <BuscarContenidoTest
-        searchTerm={searchTerm}
-        selectedCategory={selectedCategories}
-        selectedTags={selectedTags}
-        first={currentPage}
-        rows={postsPerPage}
-        dateRange={dateRange}
-        sortedPosts={sortedPosts}  // Pass sortedPosts here
-      />
-
-      {/* Pagination and modals */}
-      <div className='buscar-paginado__btnpaginado menu-bar__container'>
-        <BuscarPaginado
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={paginate}
-          onInputChange={handleInputChange}
-        />
-        <button 
-          className='buscar-paginado__input' 
-          onClick={() => setMenuOpen(!menuOpen) || toggleMenuBarMobile(true)}
-        >
-        {postsPerPage}
-        </button>
-        <Modales
+          handleCategorySelect={handleCategorySelect}
+          handleTagSelect={handleTagSelect}
+          handleTagRemove={handleTagRemove}
+          handleDateSelect={handleDateSelect}
+          isMobileModalOpen={isMobileModalOpen}
+          setIsMobileModalOpen={setIsMobileModalOpen}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          isModalCalendarOpen={isModalCalendarOpen}
+          setIsModalCalendarOpen={setIsModalCalendarOpen}
+          isModalCategoriesMobileOpen={isModalCategoriesMobileOpen}
+          setIsModalCategoriesMobileOpen={setIsModalCategoriesMobileOpen}
+          isModalCalendarMobileOpen={isModalCalendarMobileOpen}
+          setIsModalCalendarMobileOpen={setIsModalCalendarMobileOpen}
+          isMenuBarMobileOpen={isMenuBarMobileOpen}
+          toggleMenuBarMobile={toggleMenuBarMobile}
+          toggleMenuBar={toggleMenuBar}
           menuOpen={menuOpen}
           handleRowsChange={handleRowsChange}
         />
+
+        <ModalesMobile
+          isMobileModalOpen={isMobileModalOpen}
+          setIsMobileModalOpen={setIsMobileModalOpen}
+          isModalCalendarMobileOpen={isModalCalendarMobileOpen}
+          setIsModalCalendarMobileOpen={setIsModalCalendarMobileOpen}
+          isMenuBarMobileOpen={isMenuBarMobileOpen}
+          setIsMenuBarMobileOpen={setIsMenuBarMobileOpen}
+          toggleMenuBarMobile={toggleMenuBarMobile}
+          selectedCategories={selectedCategories}
+          selectedTags={selectedTags}
+          handleCategorySelect={handleCategorySelect}
+          handleTagSelect={handleTagSelect}
+          handleTagRemove={handleTagRemove}
+          handleRowsChange={handleRowsChange}
+          setDateRange={setDateRange}  
+        />
+
       </div>
-
-      {/* Modales */}
-      <Modales
-        selectedCategories={selectedCategories}
-        selectedTags={selectedTags}
-        handleCategorySelect={handleCategorySelect}
-        handleTagSelect={handleTagSelect}
-        handleTagRemove={handleTagRemove}
-        handleDateSelect={handleDateSelect}
-        isMobileModalOpen={isMobileModalOpen}
-        setIsMobileModalOpen={setIsMobileModalOpen}
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        isModalCalendarOpen={isModalCalendarOpen}
-        setIsModalCalendarOpen={setIsModalCalendarOpen}
-        isModalCategoriesMobileOpen={isModalCategoriesMobileOpen}
-        setIsModalCategoriesMobileOpen={setIsModalCategoriesMobileOpen}
-        isModalCalendarMobileOpen={isModalCalendarMobileOpen}
-        setIsModalCalendarMobileOpen={setIsModalCalendarMobileOpen}
-        isMenuBarMobileOpen={isMenuBarMobileOpen}
-        toggleMenuBarMobile={toggleMenuBarMobile}
-        toggleMenuBar={toggleMenuBar}
-      />
-
-      <ModalesMobile
-        isMobileModalOpen={isMobileModalOpen}
-        setIsMobileModalOpen={setIsMobileModalOpen}
-        isModalCalendarMobileOpen={isModalCalendarMobileOpen}
-        setIsModalCalendarMobileOpen={setIsModalCalendarMobileOpen}
-        isMenuBarMobileOpen={isMenuBarMobileOpen}
-        setIsMenuBarMobileOpen={setIsMenuBarMobileOpen}
-        toggleMenuBarMobile={toggleMenuBarMobile}
-        selectedCategories={selectedCategories}
-        selectedTags={selectedTags}
-        handleCategorySelect={handleCategorySelect}
-        handleTagSelect={handleTagSelect}
-        handleTagRemove={handleTagRemove}
-        handleRowsChange={handleRowsChange}
-        setDateRange={setDateRange}  // Pass setDateRange here
-      />
-
-    </div>
+    </QueryClientProvider>
   );
 };
 

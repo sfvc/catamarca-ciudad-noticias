@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import axios from "axios";
+import { useQuery } from "react-query";
 
 const BuscarContenidoTest = ({
   searchTerm,
@@ -7,155 +9,110 @@ const BuscarContenidoTest = ({
   first,
   rows,
   dateRange,
-  sortedPosts
-
+  sortedPosts,
 }) => {
   const imageURL = "https://archivos-cc.sfo3.digitaloceanspaces.com/";
-  const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch("/data/post.json");
-        const data = await response.json();
-        setPosts(data.data);
-        setIsLoading(false);
-      } catch (err) {
-        setError(err);
-        setIsLoading(false);
-      }
+  // Function to fetch posts with filters applied
+  const fetchPosts = async () => {
+    const params = {
+      searchTerm: searchTerm || "",
+      selectedCategory: selectedCategory || [],
+      selectedTags: selectedTags || [],
+      first: first || 0,
+      rows: rows || 10,
+      startDate: dateRange?.startDate || "",
+      endDate: dateRange?.endDate || "",
     };
-    fetchPosts();
-  }, []);
 
-  // Filter posts based on searchTerm, selectedCategory, selectedTags, and dateRange
-  const filteredPosts = posts.filter((news) => {
-    const matchesSearchTerm =
-      news.title.toLowerCase().includes(searchTerm.toLowerCase());
+    // Make the API request with query parameters
+    const response = await axios.get("https://noti.cc.gob.ar/api/posts", { params });
+    return response.data; // The response data should contain the posts
+  };
 
-    const matchesCategory =
-      selectedCategory.length > 0
-        ? selectedCategory.some((category) =>
-            news.categories.includes(category)
-          )
-        : true;
-
-    const matchesTags =
-      selectedTags.length > 0
-        ? selectedTags.some((tag) => news.tags.includes(tag))
-        : true;
-
-    let matchesDateRange = true;
-    if (dateRange) {
-      const startDate = new Date(dateRange.startDate);
-      const endDate = dateRange.endDate
-        ? new Date(dateRange.endDate)
-        : startDate; // If no endDate, treat it as the same date as startDate
-
-      // Ensure startDate and endDate are valid before proceeding
-      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-        console.error("Invalid date range:", dateRange);
-        return false; // Skip filtering if the date range is invalid
-      }
-
-      // Convert to YYYY-MM-DD format
-      const normalizedStartDate = startDate.toISOString().split("T")[0]; // Get YYYY-MM-DD
-      const normalizedEndDate = endDate.toISOString().split("T")[0]; // Get YYYY-MM-DD
-
-      // Check if the news date is valid
-      const normalizedNewsDate = new Date(news.date);
-      if (isNaN(normalizedNewsDate.getTime())) {
-        console.error("Invalid date format:", news.date);
-        return false; // Skip this post if the date is invalid
-      }
-      
-      const normalizedNewsDateString = normalizedNewsDate
-        .toISOString()
-        .split("T")[0]; // Get YYYY-MM-DD
-
-      // Ensure we compare the normalized date strings
-      if (normalizedStartDate === normalizedEndDate) {
-        matchesDateRange = normalizedNewsDateString === normalizedStartDate;
-      } else {
-        matchesDateRange =
-          normalizedNewsDateString >= normalizedStartDate &&
-          normalizedNewsDateString <= normalizedEndDate;
-      }
-    }
-
-    return (
-      matchesSearchTerm &&
-      matchesCategory &&
-      matchesTags &&
-      matchesDateRange
-    );
-  });
-
-  const paginatedPosts = sortedPosts.slice(first, first + rows);
+  const { data, error, isLoading } = useQuery(
+    ["posts", searchTerm, selectedCategory, selectedTags, first, rows, dateRange],
+    fetchPosts
+  );
 
   if (isLoading) {
-    return <div>Loading posts...</div>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error loading posts: {error.message}</div>;
+    return <div>Error: {error.message}</div>;
   }
 
+  // Ensure that `data.data` is an array before trying to map over it
+  const posts = data?.data || []; // Access the posts array
+
+  // Modify the rendering of the date to ensure validity
+  const paginatedPosts = posts.slice(first, first + rows);
+
   return (
-    <section style={{ marginTop: "0.5rem" }}>
-      <div className="row panels-row">
+    <section style={{ marginTop: "0.5rem", minHeight:"60dvh" }}>
+      <div className="row panels-row ">
         {paginatedPosts.length > 0 ? (
-          paginatedPosts.map((news, index) => (
-            <div className="col-xs-12 col-sm-6 col-md-4" key={news.id || index}>
-              <a href={`/noticiasmunicipales/${news.slug}`} className="panel panel-default">
-                <img
-                  className="home-new__img"
-                  src="/images/parquejumeal.webp"
-                  alt={news.title}
-                />
-                <div className="panel-body home-new">
-                  <h3 className="home-new__h3">{news.title}</h3>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "100%",
-                    }}
-                  >
-                    <small style={{ color: "gray" }}>
-                      {new Date(news.date).toISOString().split("T")[0]}{" "}
-                    </small>
+          paginatedPosts.map((news, index) => {
+            // Check if news.date is valid before attempting to format it
+            const formattedDate = news.date
+              ? new Date(news.date)
+              : null;
 
-                    <img
-                      style={{ width: 36 }}
-                      src="/images/buscarnoticias/arrowright.svg"
-                      alt="arrow"
-                    />
+            const formattedDateString = formattedDate && !isNaN(formattedDate.getTime())
+              ? formattedDate.toISOString().split("T")[0] // Get YYYY-MM-DD
+              : "Invalid date"; // Fallback in case of an invalid date
+
+            return (
+              <div className="col-xs-12 col-sm-6 col-md-4" key={news.id || index}>
+                <a href={`/noticiasmunicipales/${news.slug}`} className="panel panel-default">
+                  <img
+                    className="home-new__img"
+                    src="/images/parquejumeal.webp"
+                    alt={news.title}
+                  />
+                  <div className="panel-body home-new">
+                    <h3 className="home-new__h3">{news.title}</h3>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
+                      }}
+                    >
+                      <small style={{ color: "gray" }}>
+                        {formattedDateString}
+                      </small>
+
+                      <img
+                        style={{ width: 36 }}
+                        src="/images/buscarnoticias/arrowright.svg"
+                        alt="arrow"
+                      />
+                    </div>
+
+                    {news.categories && news.categories.length > 0 && (
+                      <div className="post-categories">
+                        <strong>Categories: </strong>
+                        {news.categories.join(", ")}
+                      </div>
+                    )}
+
+                    {news.tags && news.tags.length > 0 && (
+                      <div className="post-tags">
+                        <strong>Tags: </strong>
+                        {news.tags.map((tag) => tag.name).join(", ")}
+                      </div>
+                    )}
                   </div>
-
-                  {news.categories && news.categories.length > 0 && (
-                    <div className="post-categories">
-                      <strong>Categories: </strong>
-                      {news.categories.join(", ")}
-                    </div>
-                  )}
-
-                  {news.tags && news.tags.length > 0 && (
-                    <div className="post-tags">
-                      <strong>Tags: </strong>
-                      {news.tags.join(", ")}
-                    </div>
-                  )}
-                </div>
-              </a>
-            </div>
-          ))
+                </a>
+              </div>
+            );
+          })
         ) : (
           <div className="buscarcontenido-noencontrado">
-            <img src="/images/buscarnoticias/novedades-lineal.svg" alt="" width={64}/>
-            <h2 style={{color:'black'}}>Noticias no encontradas.</h2>
+            <img src="/images/buscarnoticias/novedades-lineal.svg" alt="" width={64} />
+            <h2 style={{ color: "black" }}>Noticias no encontradas.</h2>
             <small>Ingresa el nombre correcto en el buscador o la fecha apropiada en el calendario.</small>
           </div>
         )}
@@ -163,5 +120,6 @@ const BuscarContenidoTest = ({
     </section>
   );
 };
+
 
 export default BuscarContenidoTest;
