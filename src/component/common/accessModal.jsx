@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAccessibility } from './accessProvider';
 import AccessMenu from './accessComponents/accessMenu';
-import AccessButton from './accessComponents/accessButton';
 import Modal from './modal';
+import { gsap } from 'gsap';
 
-const AccessBtn = () => {
+const AccessModal = ({ isMenuOpen, toggleMenu, closeMenu }) => {
+  const accessibility = useAccessibility();
+
+  if (!accessibility) {
+    console.error('Accessibility context is undefined');
+    return null; // Or provide a fallback UI
+  }
+
   const {
     fontSize,
     increaseFontSize,
@@ -28,15 +35,36 @@ const AccessBtn = () => {
     toggleHueRotatePi,
     lineaGuiaVisible,
     toggleLineaGuia,
-  } = useAccessibility();
+  } = accessibility;
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const modalRef = useRef(null);
 
-  const toggleMenu = () => {
-    console.log("Toggling menu. Current state:", isMenuOpen);
-    setIsMenuOpen(prevState => !prevState);
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Modal opening animation (slide up and fade in)
+      gsap.set(modalRef.current, { y: '100%', opacity: 0 });
+      gsap.to(modalRef.current, {
+        y: '0%',
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power2.inOut',
+      });
+    } 
+  }, [isMenuOpen]); // Ensure this runs when `isMenuOpen` changes
+
+  const closeModal = () => {
+    // Animate the modal closing first
+    gsap.to(modalRef.current, {
+      y: '100%',  // Move the modal down to hide it
+      opacity: 0, // Fade out
+      duration: 0.3,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        closeMenu(); // Call closeMenu after the animation completes
+      },
+    });
   };
-
+  
   useEffect(() => {
     if (dyslexiaFont) {
       document.body.classList.add('dyslexia-font');
@@ -46,13 +74,14 @@ const AccessBtn = () => {
   }, [dyslexiaFont]);
 
   return (
-    <div className='displaymobilenone bgtest'>
-      <AccessButton toggleMenu={toggleMenu} />
-      <Modal isOpen={isMenuOpen} onClose={toggleMenu}>
+    <div className="displaymobilenone">
+      <Modal clase={"modal-deskopt"} isOpen={isMenuOpen} onClose={closeModal}>
         <AccessMenu
+          modalRef={modalRef}  // Pass modalRef to AccessMenu
+          closeModal={closeModal} // Pass closeModal here
           showHeader={isMenuOpen}
-          clase={'access-menu-deskopt'}
-          ul={'access-menu-deskopt__ul'}
+          clase={"access-menu-deskopt"}
+          ul={"access-menu-deskopt__ul"}
           toggleMenu={toggleMenu}
           handleIncreaseFontSize={increaseFontSize}
           handleDecreaseFontSize={decreaseFontSize}
@@ -81,4 +110,4 @@ const AccessBtn = () => {
   );
 };
 
-export default AccessBtn;
+export default AccessModal;

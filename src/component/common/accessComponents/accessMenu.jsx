@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import { useState} from 'react';
 import AccessItems from './accessItems';
 import { useAccessibility } from '../accessProvider';
 import ModalMobile from '../modalMobile';
 import LineaGuia from './lineaGuia';
 import Modal from '../modal';
+import { gsap } from 'gsap';
 
-const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
+const AccessMenu = ({ toggleMenu, clase, ul, showHeader, closeModal, modalRef }) => {
   const {
     fontSize,
     increaseFontSize,
@@ -33,7 +34,6 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
 
   // State to track which hue rotate and sepia is active
   const [activeHueRotate, setActiveHueRotate] = useState(null);
-
 
   // Function to cycle through the hue rotate and sepia states
   const handleCycleHueRotate = () => {
@@ -100,14 +100,19 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
     }
   };
 
+  const handleItemClick = (e) => {
+    // Prevent the event from propagating and closing the modal
+    e.stopPropagation();
+  };
+
   return (
     <>
-      <div className={`${clase}`} id="AccessItems">
+      <div className={`${clase}`} id="AccessItems" ref={modalRef} onClick={handleItemClick}>
           {showHeader && (
             <div className="border-bottom-amarillo">
               <div className='container'>
                 <button className="adaptabilidad-header__cerrar">
-                  <span></span>
+                  <span onClick={closeModal}></span>
                 </button>
                 <header className="adaptabilidad-header">
                   <h5>Configuracion de adaptabilidad</h5>
@@ -121,7 +126,7 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
               <AccessItems
                 itemDesk={'accessItemDesk'}
                 itemMobile={'accessItem'}
-                img={'./images/twitter.svg'}
+                img={'./images/adaptabilidad/textHeight.svg'}
                 titulo={'Agregar tamaño fuente'}
                 icon="fa-text-height"
                 label="+16px"
@@ -130,7 +135,7 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
               <AccessItems
                 itemDesk={'accessItemDesk'}
                 itemMobile={'accessItem'}
-                img={'./images/twitter.svg'}
+                img={'./images/adaptabilidad/textHeight.svg'}
                 titulo='Reducir Tamaño fuente'
                 icon="fa-text-height"
                 label="-16px"
@@ -141,7 +146,7 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
               <AccessItems
                 itemDesk={'accessItemDesk'}
                 itemMobile={'accessItem'}
-                img={'./images/twitter.svg'}
+                img={'./images/adaptabilidad/temas.svg'}
                 titulo='Temas'
                 icon="fa-paint-brush"
                 label={
@@ -157,7 +162,7 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
               <AccessItems
                 itemDesk={'accessItemDesk'}
                 itemMobile={'accessItem'}
-                img={'./images/twitter.svg'}
+                img={'./images/adaptabilidad/dislesxia.svg'}
                 titulo='Dislexia'
                 icon="fa-font"
                 label={dyslexiaFont ? "Desactivar Fuente Dislexia" : "Activar Fuente Dislexia"}
@@ -167,7 +172,7 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
               <AccessItems
                 itemDesk={'accessItemDesk'}
                 itemMobile={'accessItem'}
-                img={'./images/twitter.svg'}
+                img={'./images/adaptabilidad/daltonismo.svg'}
                 titulo='Daltonismo'
                 icon="fa-adjust"
                 label={getHueRotateLabel()}
@@ -177,19 +182,16 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
             <AccessItems
               itemDesk={'accessItemDesk'}
               itemMobile={'accessItem'}
-              img={'./images/twitter.svg'}
+              img={'./images/adaptabilidad/lineaGuia.svg'}
               titulo='Linea de Guia'
               icon="fa-eye"
               label={lineaGuiaVisible ? 'Desactivar Linea Guia' : 'Activar Linea Guia'}
               onClick={toggleLineaGuia}  // Toggle LineaGuia
             />
             
-            <LineaGuia isVisible={lineaGuiaVisible} /> 
-
-              
             </ul>
           </div>
-            <div className='access-btn-reset-div'>
+            <div className='access-btn-reset-div__deskopt container'>
               <button className="access-btn-reset-div__btn" onClick={resetSettings}>Restablecer</button>
             </div>
         </div>

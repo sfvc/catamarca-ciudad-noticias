@@ -31,9 +31,9 @@ const AccessBtnMobile = () => {
     toggleLineaGuia,  // Get the toggle function for LineaGuia
   } = useAccessibility();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpenMobile, setIsMenuOpenMobile] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => setIsMenuOpenMobile(!isMenuOpenMobile);
 
 
   useEffect(() => {
@@ -46,7 +46,6 @@ const AccessBtnMobile = () => {
 
   return (
     <div className='displaymobile'>
-      <AccessButton toggleMenu={toggleMenu}/>
       {isMenuOpen && (
         <ModalMobile isOpen={isMenuOpen} onClose={toggleMenu}>
           <AccessMenu

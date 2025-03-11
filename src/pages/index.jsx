@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
-import AccessProvider from 'component/common/accessProvider';
-import LineaGuia from 'component/common/accessComponents/lineaGuia';
-import ToolBar from 'component/common/toolBar';
+import AccessProvider from "component/common/accessProvider";
+import App from "./app";
+import ToolBar from "component/common/toolBar";
 
-const App = ({ children }) => {
+const IndexApp = ({children}) => {
+  console.log('Rendering IndexApp...');
   return (
     <AccessProvider>
-      <div>
-        <ToolBar />
-      </div>
+      <ToolBar/>
       {children}
-      <LineaGuia/>
     </AccessProvider>
   );
 };
 
-export default App;
+export default IndexApp;
