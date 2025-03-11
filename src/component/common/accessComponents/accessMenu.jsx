@@ -183,9 +183,6 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader }) => {
               label={lineaGuiaVisible ? 'Desactivar Linea Guia' : 'Activar Linea Guia'}
               onClick={toggleLineaGuia}  // Toggle LineaGuia
             />
-            
-            <LineaGuia isVisible={lineaGuiaVisible} /> 
-
               
             </ul>
           </div>
