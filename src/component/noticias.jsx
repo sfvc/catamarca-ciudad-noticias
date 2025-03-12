@@ -11,7 +11,6 @@ const NoticiasPage = ({ noticias }) => {
   
   return (
     <div className="region region-content container">
-      <BtnLectura/>
       <div id="block-system-main" className="block block-system clearfix">
         <article>
           {/* Pass the necessary data to NoticiasHeader */}

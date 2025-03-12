@@ -617,6 +617,8 @@
 
 /* Hide mobile-only on screens above 1023.98px */
 @media (min-width: 1024px) {
+
+
   .larger-only {
     display: none !important;
   }
@@ -707,3 +709,29 @@
   text-align: center;
   cursor: pointer;
 }
+
+
+.buscarnoticias__fechaseleccionada{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: start;
+  color: gray;
+  font-size: 700;
+}
+
+.tag-selected-categorias__item.active {
+  border: 1px solid #e7ba61;
+  background-color: #e7ba61;
+  color: white;
+  cursor: pointer;
+}
+
+.tag-selected-tags .tag-selected-categorias__item.active {
+  border: 1px solid #e7ba61;
+  background-color: #e7ba61;
+  color: white;
+  cursor: pointer;
+}
+
+

@@ -57,11 +57,26 @@ const TagSelected = ({
   const paginatedCategories = allCategories.slice((categoryPage - 1) * itemsPerPage, categoryPage * itemsPerPage);
   const paginatedTags = allTags.slice((tagPage - 1) * itemsPerPage, tagPage * itemsPerPage);
 
+  const toggleCategory = (category) => {
+    if (selectedCategories.includes(category)) {
+      onCategoryRemove(category);
+    } else {
+      onCategorySelect(category);
+    }
+  };
+
+  const toggleTag = (tag) => {
+    if (selectedTags.includes(tag)) {
+      onTagRemove(tag);
+    } else {
+      onTagSelect(tag);
+    }
+  };
+
   return (
     <div className="tag-selected">
       {/* Categories Pagination */}
       <div className="tag-selected-categorias">
-        {/* Pagination for available categories */}
         {allCategories.length > itemsPerPage && (
           <div className="pagination">
             <button
@@ -78,8 +93,8 @@ const TagSelected = ({
           {paginatedCategories.map((category) => (
             <span
               key={category}
-              className="tag-selected-categorias__item"
-              onClick={() => onCategorySelect(category)}
+              className={`tag-selected-categorias__item ${selectedCategories.includes(category) ? 'active' : ''}`}
+              onClick={() => toggleCategory(category)}
             >
               <img src="/images/buscarnoticias/categorias.svg" alt="" />
               <small>{category}</small>
@@ -87,7 +102,6 @@ const TagSelected = ({
           ))}
         </div>
 
-        {/* Pagination for available categories */}
         {allCategories.length > itemsPerPage && (
           <div className="pagination">
             <button
@@ -103,7 +117,6 @@ const TagSelected = ({
 
       {/* Tags Pagination */}
       <div className="tag-selected-tags">
-        {/* Pagination for available tags */}
         {allTags.length > itemsPerPage && (
           <div className="pagination">
             <button
@@ -120,8 +133,8 @@ const TagSelected = ({
           {paginatedTags.map((tag) => (
             <span
               key={tag}
-              className="tag-selected-categorias__item"
-              onClick={() => onTagSelect(tag)}
+              className={`tag-selected-categorias__item ${selectedTags.includes(tag) ? 'active' : ''}`}
+              onClick={() => toggleTag(tag)}
             >
               <img src="/images/buscarnoticias/tag.svg" alt="" />
               <small>{tag}</small>
@@ -129,7 +142,6 @@ const TagSelected = ({
           ))}
         </div>
 
-        {/* Pagination for available tags */}
         {allTags.length > itemsPerPage && (
           <div className="pagination">
             <button

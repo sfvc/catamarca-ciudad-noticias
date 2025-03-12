@@ -3,7 +3,7 @@ import { Calendar } from "primereact/calendar";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { locale, addLocale } from "primereact/api";
 
-export const CalendarModal = ({ onClose, onDateSelect, initialDates }) => {
+const CalendarModal = ({ onClose, onDateSelect, initialDates }) => {
   const [dates, setDates] = useState(initialDates || null); // Store the selected date range (start and end dates)
   const modalRef = useRef(null); // Ref to check for clicks outside the modal content
 
@@ -76,3 +76,5 @@ export const CalendarModal = ({ onClose, onDateSelect, initialDates }) => {
     </div>
   );
 };
+
+export default CalendarModal;

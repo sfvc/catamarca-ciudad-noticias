@@ -4,6 +4,7 @@ import ScrollToPlugin from 'gsap/ScrollToPlugin';
 import AccessModal from './accessModal';
 import { useAccessibility } from './accessProvider';
 import LineaGuia from './accessComponents/lineaGuia';
+import { BtnLectura } from './btnLectura';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -130,10 +131,15 @@ const ToolBar = () => {
     }
   };
 
+  const isParqueElJumealPage = window.location.href === 'http://localhost:4321/noticiasmunicipales/parque-el-jumeal';
+
   return (
     <>
       <div className="toolbar">
         <div className="toolbar__item" ref={toolbarRef} onClick={sideAnimationOut}>
+          {isParqueElJumealPage && (
+            <BtnLectura/>
+          )}
           <button className="toolbar__btn">
             <svg width="36px" height="36px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               {/* Your SVG Icon */}
@@ -156,9 +162,6 @@ const ToolBar = () => {
             </svg>
           </button>
 
-            {/* <button className="btn btn-warning readingbutton" onClick={handleReadAloud}>
-            {isReading ? 'P' : 'L'}
-          </button> */}
         </div>
 
         {/* Button to toggle toolbar */}
@@ -197,3 +200,9 @@ const ToolBar = () => {
 };
 
 export default ToolBar;
+
+
+
+            {/* <button className="btn btn-warning readingbutton" onClick={handleReadAloud}>
+            {isReading ? 'P' : 'L'}
+          </button> */}

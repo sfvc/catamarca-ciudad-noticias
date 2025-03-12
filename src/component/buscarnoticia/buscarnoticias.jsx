@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import BuscarPaginado from './buscarPaginado';
 import BuscarContenidoTest from './buscarContenidoTest';
 import TagSelected from './tagsSelected';
-import { Modales } from './modales';
-import { ModalesMobile } from './modalesMobile';
 import Tooltip from 'component/common/tooltip';
 import BuscarContenido from './buscarContenido';
 import { QueryClient, QueryClientProvider } from "react-query";
+import CategoriasModal from "./categoriasModal";
+import CalendarModal from "./calendarModal";
+import MenuBar from "./menuBar";
+import ModalMobile from 'component/common/modalMobile';
+import CategoriasModalMobile from './categoriasModalMobile';
+import CalendarModalMobile from './calendarModalMobile';
+import MenuBarMobile from './menuBarMobile';
 
 const queryClient = new QueryClient();
 
@@ -17,29 +22,27 @@ const BuscarNoticias = () => {
   const [inputPage, setInputPage] = useState('');
   const [postsPerPage, setPostsPerPage] = useState(6);
   const [menuOpen, setMenuOpen] = useState(false);
-
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [dateRange, setDateRange] = useState(null);
-
+  const [selectedDate, setSelectedDate] = useState(null);
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalCalendarOpen, setIsModalCalendarOpen] = useState(false);
   const [isModalCategoriesMobileOpen, setIsModalCategoriesMobileOpen] = useState(false);
   const [isModalCalendarMobileOpen, setIsModalCalendarMobileOpen] = useState(false);
   const [isMenuBarMobileOpen, setIsMenuBarMobileOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isAscending, setIsAscending] = useState(true);
+  const [isLast30Days, setIsLast30Days] = useState(false);
 
   const openMobileModal = () => setIsMobileModalOpen(true);
   const closeMobileModal = () => setIsMobileModalOpen(false);
-  
+
   const toggleMenuBar = () => setMenuOpen(!menuOpen);
   const toggleMenuBarMobile = () => setIsMenuBarMobileOpen(prevState => !prevState);
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  const [isAscending, setIsAscending] = useState(true); 
-  const [isLast30Days, setIsLast30Days] = useState(false); 
 
   useEffect(() => {
     fetch('/data/post.json')
@@ -47,7 +50,7 @@ const BuscarNoticias = () => {
       .then((data) => {
         if (Array.isArray(data.data)) {
           setPosts(data.data);
-          setAllPosts(data.data); 
+          setAllPosts(data.data);
         } else {
           console.error('Error: "data" is not an array');
         }
@@ -59,28 +62,16 @@ const BuscarNoticias = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
   const filteredPosts = posts.filter((news) => {
-    // Check if the title matches the search term
-    const matchesSearchTerm = news.title.toLowerCase().includes(searchTerm.toLowerCase());
-  
-    // Match any of the selected categories
-    const matchesCategory = Array.isArray(selectedCategories) && selectedCategories.length > 0 
-      ? selectedCategories.every((category) => news.categories.includes(category))  // Accumulate by checking if all selected categories are matched
-      : true; // If no categories are selected, show all posts
-  
-    // Match any of the selected tags
-    const matchesTags = Array.isArray(selectedTags) && selectedTags.length > 0 
-      ? selectedTags.every((tag) => news.tags.includes(tag))  // Accumulate by checking if all selected tags are matched
-      : true;  // If no tags are selected, show all posts
-  
-    // Check if the post's date is within the selected date range
-    const matchesDateRange = dateRange 
-      ? new Date(news.date) >= new Date(dateRange.startDate) && new Date(news.date) <= new Date(dateRange.endDate) 
-      : true;  // If no date range is selected, show all posts
-  
-    return matchesSearchTerm && matchesCategory && matchesTags && matchesDateRange;
-  });
-  
+    const matchesCategory = selectedCategories.length > 0
+      ? selectedCategories.every(category => news.categories.includes(category))
+      : true;
 
+    const matchesTag = selectedTags.length > 0
+      ? selectedTags.every(tag => news.tags.includes(tag))
+      : true;
+
+    return matchesCategory && matchesTag;
+  });
 
   const sortedPosts = [...filteredPosts].sort((a, b) => {
     const dateA = new Date(a.date);
@@ -101,21 +92,23 @@ const BuscarNoticias = () => {
   const handleCategorySelect = (category) => {
     setSelectedCategories((prev) => {
       const updatedCategories = [...prev, category];
-      console.log('Updated Categories:', updatedCategories);  // Log immediately after update
+      console.log('Updated Categories:', updatedCategories);
       return updatedCategories;
     });
   };
-  
+
   const handleTagSelect = (tag) => {
     setSelectedTags((prev) => {
       const updatedTags = [...prev, tag];
-      console.log('Updated Tags:', updatedTags);  // Log immediately after update
+      console.log('Updated Tags:', updatedTags);
       return updatedTags;
     });
   };
+
   const handleCategoryRemove = (category) => {
     setSelectedCategories(prev => prev.filter(item => item !== category));
   };
+
   const handleTagRemove = (tag) => {
     setSelectedTags(prev => prev.filter(item => item !== tag));
   };
@@ -161,12 +154,13 @@ const BuscarNoticias = () => {
     } else {
       setPosts(filterPostsLast30Days());
     }
-    setIsLast30Days(!isLast30Days); 
+    setIsLast30Days(!isLast30Days);
   };
 
   const setPrimerUltima = () => {
-    setIsAscending(!isAscending); 
+    setIsAscending(!isAscending);
   };
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -183,7 +177,6 @@ const BuscarNoticias = () => {
     console.log('selectedCategories (after update):', selectedCategories);
     console.log('selectedTags (after update):', selectedTags);
   }, [selectedCategories, selectedTags]);
-  
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -252,6 +245,16 @@ const BuscarNoticias = () => {
           />
         </div>
 
+        {dateRange && (
+          <div className="buscarnoticias__fechaseleccionada">
+            <small>Fecha seleccionada</small>
+            <small>
+              {dateRange.startDate.toLocaleDateString()} -{" "}
+              {dateRange.endDate ? dateRange.endDate.toLocaleDateString() : dateRange.startDate.toLocaleDateString()}
+            </small>
+          </div>
+        )}
+
         <BuscarContenidoTest
           searchTerm={searchTerm}
           selectedCategory={selectedCategories}
@@ -259,7 +262,7 @@ const BuscarNoticias = () => {
           first={currentPage}
           rows={postsPerPage}
           dateRange={dateRange}
-          sortedPosts={sortedPosts}  
+          sortedPosts={sortedPosts}
         />
 
         <div className='buscar-paginado__btnpaginado menu-bar__container'>
@@ -269,60 +272,72 @@ const BuscarNoticias = () => {
             onPageChange={paginate}
             onInputChange={handleInputChange}
           />
-          <button 
-            className='buscar-paginado__input' 
+          <button
+            className='buscar-paginado__input'
             onClick={() => setMenuOpen(!menuOpen) || toggleMenuBarMobile(true)}
           >
-          {postsPerPage}
+            {postsPerPage}
           </button>
-          <Modales
-            menuOpen={menuOpen}
-            handleRowsChange={handleRowsChange}
+
+        {/* Modals for categories and calendar */}
+        {isModalOpen && (
+          <CategoriasModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onCategorySelect={handleCategorySelect}
+            onTagSelect={handleTagSelect}
+            selectedCategories={selectedCategories}
+            selectedTags={selectedTags}
           />
+        )}
+
+        {isModalCalendarOpen && (
+          <CalendarModal
+            isOpen={isModalCalendarOpen}
+            onClose={() => setIsModalCalendarOpen(false)}
+            onDateSelect={handleDateSelect}
+          />
+        )}
+
+        {isMenuBarMobileOpen && (
+          <ModalMobile isOpen={isMenuBarMobileOpen} onClose={toggleMenuBarMobile}>
+            <MenuBarMobile
+              isOpen={isMenuBarMobileOpen}
+              closeModal={toggleMenuBarMobile}
+              handleRowsChange={handleRowsChange}
+            />
+          </ModalMobile>
+        )}
+
+        {/* Mobile Modals */}
+        {isMobileModalOpen && (
+          <ModalMobile isOpen={isMobileModalOpen} onClose={() => setIsMobileModalOpen(false)}>
+            <CategoriasModalMobile
+              selectedCategories={selectedCategories}
+              selectedTags={selectedTags}
+              onCategorySelect={handleCategorySelect}
+              onTagSelect={handleTagSelect}
+              onTagRemoveCategory={handleTagRemove}
+            />
+          </ModalMobile>
+        )}
+
+        {isModalCalendarMobileOpen && (
+          <ModalMobile isOpen={isModalCalendarMobileOpen} onClose={() => setIsModalCalendarMobileOpen(false)}>
+            <CalendarModalMobile onClose={handleDateSelect} />
+          </ModalMobile>
+        )}
+
+        {isMenuBarMobileOpen && (
+          <ModalMobile isOpen={isMenuBarMobileOpen} onClose={toggleMenuBarMobile}>
+            <MenuBarMobile
+              isOpen={isMenuBarMobileOpen}
+              closeModal={toggleMenuBarMobile}
+              handleRowsChange={handleRowsChange}
+            />
+          </ModalMobile>
+        )}
         </div>
-
-        {/* Modales */}
-        <Modales
-          selectedCategories={selectedCategories}
-          selectedTags={selectedTags}
-          handleCategorySelect={handleCategorySelect}
-          handleTagSelect={handleTagSelect}
-          handleTagRemove={handleTagRemove}
-          handleDateSelect={handleDateSelect}
-          isMobileModalOpen={isMobileModalOpen}
-          setIsMobileModalOpen={setIsMobileModalOpen}
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-          isModalCalendarOpen={isModalCalendarOpen}
-          setIsModalCalendarOpen={setIsModalCalendarOpen}
-          isModalCategoriesMobileOpen={isModalCategoriesMobileOpen}
-          setIsModalCategoriesMobileOpen={setIsModalCategoriesMobileOpen}
-          isModalCalendarMobileOpen={isModalCalendarMobileOpen}
-          setIsModalCalendarMobileOpen={setIsModalCalendarMobileOpen}
-          isMenuBarMobileOpen={isMenuBarMobileOpen}
-          toggleMenuBarMobile={toggleMenuBarMobile}
-          toggleMenuBar={toggleMenuBar}
-          menuOpen={menuOpen}
-          handleRowsChange={handleRowsChange}
-        />
-
-        <ModalesMobile
-          isMobileModalOpen={isMobileModalOpen}
-          setIsMobileModalOpen={setIsMobileModalOpen}
-          isModalCalendarMobileOpen={isModalCalendarMobileOpen}
-          setIsModalCalendarMobileOpen={setIsModalCalendarMobileOpen}
-          isMenuBarMobileOpen={isMenuBarMobileOpen}
-          setIsMenuBarMobileOpen={setIsMenuBarMobileOpen}
-          toggleMenuBarMobile={toggleMenuBarMobile}
-          selectedCategories={selectedCategories}
-          selectedTags={selectedTags}
-          handleCategorySelect={handleCategorySelect}
-          handleTagSelect={handleTagSelect}
-          handleTagRemove={handleTagRemove}
-          handleRowsChange={handleRowsChange}
-          setDateRange={setDateRange}  
-        />
-
       </div>
     </QueryClientProvider>
   );

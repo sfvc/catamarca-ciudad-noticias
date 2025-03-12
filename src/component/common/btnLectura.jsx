@@ -24,7 +24,7 @@ export const BtnLectura = () => {
         }
       };
     return ( 
-        <button className="btn btn-warning" onClick={handleReadAloud}>
+        <button className="toolbar__btn" onClick={handleReadAloud}>
             {isReading ? 'P' : 'L'}
         </button>
      );

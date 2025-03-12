@@ -2,9 +2,9 @@
 
 .toolbar{
     position: fixed;
-    padding: 1rem 0px; 
+    padding: 0.2rem 0px; 
     bottom: 2px; 
-    right: 6px; 
+    right: 4px; 
     z-index: 10;
 }
 

@@ -42,7 +42,7 @@ html {
 
 
 *::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 4px; /* Width of the scrollbar */
     background: transparent; /* Track background transparent */
 }
 
