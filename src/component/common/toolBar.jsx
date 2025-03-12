@@ -131,7 +131,7 @@ const ToolBar = () => {
     }
   };
 
-  const isParqueElJumealPage = window.location.href === 'http://localhost:4321/noticiasmunicipales/parque-el-jumeal';
+  const isParqueElJumealPage = window.location.href === 'https://catamarca-ciudad-noticias.netlify.app/noticiasmunicipales/parque-el-jumeal/';
 
   return (
     <>
