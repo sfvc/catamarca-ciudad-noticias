@@ -47,14 +47,14 @@
 /* Overlay */
 .categorias-modal__overlay {
   position: absolute;
-  top: 190px;
   left: 0;
   right: 0;
-  bottom: 0;
+  top: 100%;
   display: flex;
   justify-content: center;
   align-items: start;
   z-index: 2;
+  width: 100%;
 }
 
 
@@ -389,13 +389,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  height: 28px;
 }
 
 .tag-selected-categorias__item{
   border: 1px solid lightgray;
   font-size: 10px;
-  padding: 3px 6px 3px 3px;
+  padding: 2px 6px;
   border-radius: 0.25rem;
 }
 

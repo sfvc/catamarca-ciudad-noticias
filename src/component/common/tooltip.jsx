@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AccessBtn from "./accessModal";
 
-const Tooltip = ({ children, text, clase }) => {
+const Tooltip = ({ children, text, clase, tooltip }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const Tooltip = ({ children, text, clase }) => {
         onMouseLeave={() => setIsVisible(false)}
       >
         {children}
-        {isVisible && <div className="tooltip">{text}</div>}
+        {isVisible && <div className={`tooltip ${tooltip}`}>{text}</div>}
       </div>
     </>
 

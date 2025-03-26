@@ -1,23 +1,25 @@
-
-
-.toolbar{
+.toolbar {
     position: fixed;
     padding: 0.2rem 0px; 
     bottom: 2px; 
     right: 4px; 
-    z-index: 10;
+    z-index: 2;
+    display: flex;
+    flex-direction: column; /* Ensure the toolbar items are arranged vertically */
 }
 
-.toolbar__item{
-    padding: 1rem 0px; 
+.toolbar__item {
+    padding: 0.5rem 0px; 
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
     flex-direction: column;
+    max-width: 100%; /* Ensure the toolbar items don't exceed the screen width */
+    flex-wrap: nowrap; /* Prevent wrapping */
 }
 
-.toolbar__btn{
+.toolbar__btn {
     width: 36px;
     height: auto;
     border-radius: 10px;
@@ -28,4 +30,49 @@
     cursor: pointer;
     background-color: white;
     border: 1px solid lightgray;
+}
+
+.toolbar-tooltip__item {
+    position: relative;
+    display: inline-block;
+    max-width: 200px; /* Ensure the tooltip has a max width */
+    word-wrap: break-word; /* Allow long words to break onto the next line */
+}
+
+.toolbar-tooltip {
+    padding: 6px 12px;
+    background-color: #001529;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 10px;
+    white-space: normal; /* Allow the text to wrap */
+    max-width: 150px; /* Limit the max width of the tooltip */
+}
+
+.toolbar-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 50%;  /* Vertically center the arrow */
+    left: 100%;  /* Position the arrow just to the right of the tooltip */
+    transform: translateY(-50%);  /* Center it vertically */
+    border-top: 5px solid transparent;  /* Top side of the triangle */
+    border-bottom: 5px solid transparent;  /* Bottom side of the triangle */
+    border-left: 5px solid #001529;  /* The arrow itself (triangle) */
+}
+
+
+/* For desktop screens, above 1023.98px */
+@media screen and (min-width: 1024px) {
+    .toolbar__btn-mobile {
+        display: none; /* Hide the mobile button */
+    }
+}
+
+/* For mobile screens, below 1023.98px */
+@media screen and (max-width: 1023.98px) {
+    .toolbar__btn-deskopt {
+        display: none !important; /* Hide the desktop button */
+    }
+
 }

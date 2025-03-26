@@ -26,7 +26,8 @@ const HomePage = () => {
                 <img src="/images/link.svg" alt="link icon" className="link-icon" />
             </a>
         </div>
-        <h2 style={{ textAlign: "center" }}>Noticias Generales</h2>
+        
+        <h2 style={{ textAlign: "center", fontSize:'auto !important' }}>Noticias Generales</h2>
         <NoticiasHome />
         <a className="home-noticias__linkbuscarnoticias" href="/buscarnoticias">Ver mas noticias</a>
       </div>

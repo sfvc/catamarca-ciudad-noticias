@@ -59,7 +59,7 @@ const ModalMobile = ({ isOpen, onClose, children }) => {
       >
         <div className="modalHeaderMobile" ref={modalRef}>
           <button className="modal__cerrarbarra" onClick={closeModal}>
-            <img className="modal__cerrarbarra-icon" src="/path-to-close-icon.png" alt="close" />
+            <span className="modal__cerrarbarra-icon"/>
           </button>
           {children} {/* Children will be the dynamic content like CalendarModalMobile */}
         </div>

@@ -193,17 +193,17 @@ const BuscarNoticias = () => {
             <button className='buscarnoticias__input-btn'>Buscar</button>
           </div>
           <div className="buscarnoticias__input-btn-continer">
-            <Tooltip clase={`${isAscending ? '' : 'active-border'}`} text={'Primer / Ultima'}>
+            <Tooltip tooltip="tooltip-bottom" clase={`${isAscending ? '' : 'active-border'}`} text={'Primer / Ultima'}>
               <img className="buscarnoticias__input-btn-img" onClick={setPrimerUltima} src="/images/buscarnoticias/lastweek.svg" alt="" width={24} />
             </Tooltip>
-            <Tooltip clase={`${isLast30Days ? 'active-border' : ''}`} text={'30 Dias'}>
+            <Tooltip tooltip="tooltip-bottom" clase={`${isLast30Days ? 'active-border' : ''}`} text={'30 Dias'}>
               <img className="buscarnoticias__input-btn-img" onClick={handle30DiasClick} src="/images/buscarnoticias/lastmonth.svg" alt="" width={24} />
             </Tooltip>
-            <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'mobile-only' : ''}`} text={'Categorias'}>
-              <img className="buscarnoticias__input-btn-img" onClick={() => setIsModalOpen(true)} src="/images/buscarnoticias/categorias.svg" alt="" width={24} />
+            <Tooltip tooltip="tooltip-bottom" clase={`buscarnoticias__input-btn-img ${isMobile ? 'mobile-only' : ''}`} text={'Categorias'}>
+              <img  tooltip="tooltip-bottom" className="buscarnoticias__input-btn-img" onClick={() => setIsModalOpen(true)} src="/images/buscarnoticias/categorias.svg" alt="" width={24} />
             </Tooltip>
 
-            <Tooltip clase={`buscarnoticias__input-btn-img ${isMobile ? 'mobile-only' : ''}`} text={'Calendario'}>
+            <Tooltip tooltip="tooltip-bottom" clase={`buscarnoticias__input-btn-img ${isMobile ? 'mobile-only' : ''}`} text={'Calendario'}>
               <img
                 className="buscarnoticias__input-btn-img"
                 onClick={() => setIsModalCalendarOpen(true)}
@@ -232,6 +232,25 @@ const BuscarNoticias = () => {
                 width={24}
               />
             </Tooltip>
+            {isModalOpen && (
+              <CategoriasModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onCategorySelect={handleCategorySelect}
+                onTagSelect={handleTagSelect}
+                selectedCategories={selectedCategories}
+                selectedTags={selectedTags}
+              />
+            )}
+
+            {isModalCalendarOpen && (
+              <CalendarModal
+                isOpen={isModalCalendarOpen}
+                onClose={() => setIsModalCalendarOpen(false)}
+                onDateSelect={handleDateSelect}
+              />
+            )}
+
           </div>
           <TagSelected
             allCategories={[...new Set(allPosts.flatMap(post => post.categories))]}
@@ -280,25 +299,6 @@ const BuscarNoticias = () => {
           </button>
 
         {/* Modals for categories and calendar */}
-        {isModalOpen && (
-          <CategoriasModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onCategorySelect={handleCategorySelect}
-            onTagSelect={handleTagSelect}
-            selectedCategories={selectedCategories}
-            selectedTags={selectedTags}
-          />
-        )}
-
-        {isModalCalendarOpen && (
-          <CalendarModal
-            isOpen={isModalCalendarOpen}
-            onClose={() => setIsModalCalendarOpen(false)}
-            onDateSelect={handleDateSelect}
-          />
-        )}
-
         {isMenuBarMobileOpen && (
           <ModalMobile isOpen={isMenuBarMobileOpen} onClose={toggleMenuBarMobile}>
             <MenuBarMobile

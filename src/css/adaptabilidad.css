@@ -104,6 +104,29 @@ body.dyslexia-font {
   .displaymobilenone{
     display: block;
   }
+
+  .accessItemDesk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    gap: 0.5rem;
+    text-align: center;
+    border: 1px solid #ddd; /* Optional: adds a border around items */
+    border-radius: 8px;
+    background-color: #fff;
+    transition: transform 0.2s ease-out, background-color 0.2s ease-in;
+  }
+  
+  .accessItemDesk small{
+    text-align: center;
+  }
+  
+  .accessItemDesk:hover {
+    cursor: pointer;
+    transform: translateY(-4px); /* Moves element 1px up */
+  }
 }
 
 .access-menu-deskopt{
@@ -122,30 +145,6 @@ body.dyslexia-font {
   list-style: none; /* Remove default list styles */
 }
 
-
-
-.accessItemDesk {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 1rem;
-  gap: 0.5rem;
-  text-align: center;
-  border: 1px solid #ddd; /* Optional: adds a border around items */
-  border-radius: 8px;
-  background-color: #fff;
-  transition: transform 0.2s ease-out, background-color 0.2s ease-in;
-}
-
-.accessItemDesk small{
-  text-align: center;
-}
-
-.accessItemDesk:hover {
-  cursor: pointer;
-  transform: translateY(-4px); /* Moves element 1px up */
-}
 
 .adaptabilidad-header{
   display: flex;
@@ -174,4 +173,26 @@ body.dyslexia-font {
   font-size: 16px !important;
   color: gray !important;
   font-weight: 500 !important;
+}
+
+.access-menu__ul__mobile{
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 16px 2px;
+  gap: 1rem;
+}
+
+.access-menu__ul__mobile > li {
+  gap: 2rem !important;
+}
+
+.access-menu__ul__mobile > li > img {
+  width: 24px;
+}
+
+.access-menu__mobile > .access-btn-reset-div__deskopt {
+  justify-content: center !important;
 }
