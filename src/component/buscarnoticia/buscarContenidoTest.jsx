@@ -1,6 +1,7 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useQuery } from "react-query";
+import { catamarcaApi } from "api/catamarcaApi";
 
 const BuscarContenidoTest = ({
   searchTerm,
@@ -11,29 +12,40 @@ const BuscarContenidoTest = ({
   dateRange,
   sortedPosts,
 }) => {
-  const imageURL = "https://archivos-cc.sfo3.digitaloceanspaces.com/";
 
-  // Function to fetch posts with filters applied
-  const fetchPosts = async () => {
-    const params = {
-      searchTerm: searchTerm || "",
-      selectedCategory: selectedCategory || [],
-      selectedTags: selectedTags || [],
-      first: first || 0,
-      rows: rows || 10,
-      startDate: dateRange?.startDate || "",
-      endDate: dateRange?.endDate || "",
-    };
-
-    // Make the API request with query parameters
-    const response = await axios.get("https://noti.cc.gob.ar/api/posts", { params });
-    return response.data; // The response data should contain the posts
+  const fetchNews = async () => {
+    const tagIds = selectedTags.map(tag => tag.id);
+    const filter = {};
+    if (searchTerm) {
+      filter.titulo = { _icontains: searchTerm }; // Solo filtrar por título si searchTerm tiene valor
+    }
+    const { data } = await catamarcaApi.get("/items/noticias", {
+      params: {
+        filter, 
+        deep: {
+          etiquetas: {
+            etiquetas_noticias: {
+              id: {
+                _in: tagIds // Filtra las noticias que tengan al menos una etiqueta en selectedTags
+              }
+            }
+          }
+        }
+      }
+    });
+    console.log(data);
+    return data.data;
   };
 
-  const { data, error, isLoading } = useQuery(
-    ["posts", searchTerm, selectedCategory, selectedTags, first, rows, dateRange],
-    fetchPosts
+  const imageURL = "https://archivos-cc.sfo3.digitaloceanspaces.com/";
+  const { data: noticias = [], error, isLoading } = useQuery(
+    ["noticiasDestacadas", selectedTags,searchTerm], // Clave dinámica basada en selectedTags
+    fetchNews,
+    {
+      enabled: !!selectedTags, // Evita ejecutar si selectedTags es null o undefined
+    }
   );
+
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -43,25 +55,14 @@ const BuscarContenidoTest = ({
     return <div>Error: {error.message}</div>;
   }
 
-  // Ensure that `data.data` is an array before trying to map over it
-  const posts = data?.data || []; // Access the posts array
 
-  // Modify the rendering of the date to ensure validity
-  const paginatedPosts = posts.slice(first, first + rows);
-
+  
   return (
-    <section style={{ marginTop: "0.5rem", minHeight:"60dvh" }}>
-      <div className="row panels-row ">
-        {paginatedPosts.length > 0 ? (
-          paginatedPosts.map((news, index) => {
-            // Check if news.date is valid before attempting to format it
-            const formattedDate = news.date
-              ? new Date(news.date)
-              : null;
 
-            const formattedDateString = formattedDate && !isNaN(formattedDate.getTime())
-              ? formattedDate.toISOString().split("T")[0] // Get YYYY-MM-DD
-              : "Invalid date"; // Fallback in case of an invalid date
+    <section style={{ marginTop: "0.5rem", minHeight: "60dvh" }}>
+      <div className="row panels-row ">
+        {noticias.length > 0 ? (
+          noticias.map((news, index) => {
 
             return (
               <div className="col-xs-12 col-sm-6 col-md-4" key={news.id || index}>
@@ -72,7 +73,7 @@ const BuscarContenidoTest = ({
                     alt={news.title}
                   />
                   <div className="panel-body home-new">
-                    <h3 className="home-new__h3">{news.title}</h3>
+                    <h3 className="home-new__h3">{news.titulo}</h3>
                     <div
                       style={{
                         display: "flex",
@@ -81,7 +82,7 @@ const BuscarContenidoTest = ({
                       }}
                     >
                       <small style={{ color: "gray" }}>
-                        {formattedDateString}
+                        {news.fecha}
                       </small>
 
                       <img
@@ -98,10 +99,10 @@ const BuscarContenidoTest = ({
                       </div>
                     )}
 
-                    {news.tags && news.tags.length > 0 && (
+                    {news.etiquetas && news.etiquetas.length > 0 && (
                       <div className="post-tags">
                         <strong>Tags: </strong>
-                        {news.tags.map((tag) => tag.name).join(", ")}
+                        {news.etiquetas.map((tag) => tag).join(", ")}
                       </div>
                     )}
                   </div>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useQuery } from "react-query";
+import { catamarcaApi } from "api/catamarcaApi";
 
 const TagSelected = ({
   allCategories,
@@ -10,8 +12,8 @@ const TagSelected = ({
   onCategoryRemove,
   onTagRemove
 }) => {
-  const [categoryPage, setCategoryPage] = useState(1);
-  const [tagPage, setTagPage] = useState(1);
+  // const [categoryPage, setCategoryPage] = useState(1);
+  // const [tagPage, setTagPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6); // Default to 6 (tablet)
 
   const handleResize = () => {
@@ -36,26 +38,26 @@ const TagSelected = ({
     };
   }, []);
 
-  const handleCategoryPageChange = (direction) => {
-    const totalCategoryPages = Math.ceil(allCategories.length / itemsPerPage);
-    if (direction === 'next' && categoryPage < totalCategoryPages) {
-      setCategoryPage(categoryPage + 1);
-    } else if (direction === 'prev' && categoryPage > 1) {
-      setCategoryPage(categoryPage - 1);
-    }
-  };
+  // const handleCategoryPageChange = (direction) => {
+  //   const totalCategoryPages = Math.ceil(allCategories.length / itemsPerPage);
+  //   if (direction === 'next' && categoryPage < totalCategoryPages) {
+  //     setCategoryPage(categoryPage + 1);
+  //   } else if (direction === 'prev' && categoryPage > 1) {
+  //     setCategoryPage(categoryPage - 1);
+  //   }
+  // };
 
-  const handleTagPageChange = (direction) => {
-    const totalTagPages = Math.ceil(allTags.length / itemsPerPage);
-    if (direction === 'next' && tagPage < totalTagPages) {
-      setTagPage(tagPage + 1);
-    } else if (direction === 'prev' && tagPage > 1) {
-      setTagPage(tagPage - 1);
-    }
-  };
+  // const handleTagPageChange = (direction) => {
+  //   const totalTagPages = Math.ceil(allTags.length / itemsPerPage);
+  //   if (direction === 'next' && tagPage < totalTagPages) {
+  //     setTagPage(tagPage + 1);
+  //   } else if (direction === 'prev' && tagPage > 1) {
+  //     setTagPage(tagPage - 1);
+  //   }
+  // };
 
-  const paginatedCategories = allCategories.slice((categoryPage - 1) * itemsPerPage, categoryPage * itemsPerPage);
-  const paginatedTags = allTags.slice((tagPage - 1) * itemsPerPage, tagPage * itemsPerPage);
+  // const paginatedCategories = allCategories.slice((categoryPage - 1) * itemsPerPage, categoryPage * itemsPerPage);
+  // const paginatedTags = allTags.slice((tagPage - 1) * itemsPerPage, tagPage * itemsPerPage);
 
   const toggleCategory = (category) => {
     if (selectedCategories.includes(category)) {
@@ -73,11 +75,24 @@ const TagSelected = ({
     }
   };
 
+  const fetchTags = async () => {
+    const { data } = await catamarcaApi.get("/items/etiquetas_noticias");
+    return data.data;
+  };
+  const { data: etiquetas = [], errorT, isLoadingT } = useQuery("etiquetas", fetchTags);
+
+  const fetchCategory = async () => {
+    const { data } = await catamarcaApi.get("/items/categoria_noticia");
+    return data.data;
+  };
+  const { data: categorias = [], errorC, isLoadingC } = useQuery("categorias", fetchCategory);
+
   return (
     <div className="tag-selected">
+
       {/* Categories Pagination */}
       <div className="tag-selected-categorias">
-        {allCategories.length > itemsPerPage && (
+        {/* {allCategories.length > itemsPerPage && (
           <div className="pagination">
             <button
               onClick={() => handleCategoryPageChange('prev')}
@@ -85,24 +100,25 @@ const TagSelected = ({
               className="pagination-btn"
             >
               <img src="/images/buscarnoticias/previous.svg" alt="" width={24} />
+
             </button>
           </div>
-        )}
+        )} */}
 
         <div className="tag-selected-categorias__content">
-          {paginatedCategories.map((category) => (
+          {categorias.map((category) => (
             <span
               key={category}
               className={`tag-selected-categorias__item ${selectedCategories.includes(category) ? 'active' : ''}`}
               onClick={() => toggleCategory(category)}
             >
               <img src="/images/buscarnoticias/categorias.svg" alt="" />
-              <small>{category}</small>
+              <small>{category.nombre}</small>
             </span>
           ))}
         </div>
 
-        {allCategories.length > itemsPerPage && (
+        {/* {allCategories.length > itemsPerPage && (
           <div className="pagination">
             <button
               onClick={() => handleCategoryPageChange('next')}
@@ -112,12 +128,12 @@ const TagSelected = ({
               <img src="/images/buscarnoticias/next.svg" alt="" width={24} />
             </button>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Tags Pagination */}
       <div className="tag-selected-tags">
-        {allTags.length > itemsPerPage && (
+        {/* {etiquetas.length > itemsPerPage && (
           <div className="pagination">
             <button
               onClick={() => handleTagPageChange('prev')}
@@ -127,22 +143,23 @@ const TagSelected = ({
               <img src="/images/buscarnoticias/previous.svg" alt="" width={24} />
             </button>
           </div>
-        )}
+        )} */}
 
         <div className="tag-selected-categorias__content">
-          {paginatedTags.map((tag) => (
+          {etiquetas.map((tag) => (
             <span
-              key={tag}
+              key={tag.id}
               className={`tag-selected-categorias__item ${selectedTags.includes(tag) ? 'active' : ''}`}
               onClick={() => toggleTag(tag)}
             >
               <img src="/images/buscarnoticias/tag.svg" alt="" />
-              <small>{tag}</small>
+              {/* <small></small> */}
+              {tag.nombre}
             </span>
           ))}
         </div>
 
-        {allTags.length > itemsPerPage && (
+        {/* {etiquetas.length > itemsPerPage && (
           <div className="pagination">
             <button
               onClick={() => handleTagPageChange('next')}
@@ -152,7 +169,7 @@ const TagSelected = ({
               <img src="/images/buscarnoticias/next.svg" alt="" width={24} />
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

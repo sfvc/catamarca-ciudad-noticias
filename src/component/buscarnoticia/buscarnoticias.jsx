@@ -4,7 +4,8 @@ import BuscarContenidoTest from './buscarContenidoTest';
 import TagSelected from './tagsSelected';
 import Tooltip from 'component/common/tooltip';
 import BuscarContenido from './buscarContenido';
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { catamarcaApi } from "api/catamarcaApi";
 import CategoriasModal from "./categoriasModal";
 import CalendarModal from "./calendarModal";
 import MenuBar from "./menuBar";
@@ -16,6 +17,7 @@ import MenuBarMobile from './menuBarMobile';
 const queryClient = new QueryClient();
 
 const BuscarNoticias = () => {
+  
   const [posts, setPosts] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -104,7 +106,6 @@ const BuscarNoticias = () => {
       return updatedTags;
     });
   };
-
   const handleCategoryRemove = (category) => {
     setSelectedCategories(prev => prev.filter(item => item !== category));
   };
@@ -173,10 +174,10 @@ const BuscarNoticias = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log('selectedCategories (after update):', selectedCategories);
-    console.log('selectedTags (after update):', selectedTags);
-  }, [selectedCategories, selectedTags]);
+  // useEffect(() => {
+  //   // console.log('selectedCategories (after update):', selectedCategories);
+  //   // console.log('selectedTags (after update):', selectedTags);
+  // }, [selectedCategories, selectedTags]);
 
   return (
     <QueryClientProvider client={queryClient}>
