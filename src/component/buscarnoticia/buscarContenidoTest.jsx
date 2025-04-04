@@ -12,34 +12,43 @@ const BuscarContenidoTest = ({
   dateRange,
   sortedPosts,
 }) => {
-
   const fetchNews = async () => {
     const tagIds = selectedTags.map(tag => tag.id);
+    const categoryIds = selectedCategory.map(category => category.id);
+  
     const filter = {};
+    
+  
     if (searchTerm) {
-      filter.titulo = { _icontains: searchTerm }; // Solo filtrar por título si searchTerm tiene valor
+      filter.titulo = { _icontains: searchTerm };
     }
-    const { data } = await catamarcaApi.get("/items/noticias", {
-      params: {
-        filter, 
-        deep: {
-          etiquetas: {
-            etiquetas_noticias: {
-              id: {
-                _in: tagIds // Filtra las noticias que tengan al menos una etiqueta en selectedTags
-              }
-            }
-          }
-        }
-      }
-    });
-    console.log(data);
-    return data.data;
+  
+    if (tagIds.length > 0) {
+      filter.etiquetas = { _in: tagIds };
+    }
+  
+    if (categoryIds.length > 0) {
+      filter.categoria = { _in: categoryIds }; // CORRECTO
+    }
+  
+    try {
+      const { data } = await catamarcaApi.get("/items/noticias", {
+        params: {
+          filter,
+          fields: "*,etiquetas.id,etiquetas.nombre,categoria.id,categoria.nombre"
+        },
+      });
+      
+      return data.data;
+    } catch (error) {
+      console.error("Error fetching news:", error);
+      return [];
+    }
   };
 
   const imageURL = "https://archivos-cc.sfo3.digitaloceanspaces.com/";
   const { data: noticias = [], error, isLoading } = useQuery(
-    ["noticiasDestacadas", selectedTags,searchTerm], // Clave dinámica basada en selectedTags
+    ["noticiasDestacadas", selectedTags, searchTerm, selectedCategory], // Clave dinámica basada en selectedTags
     fetchNews,
     {
       enabled: !!selectedTags, // Evita ejecutar si selectedTags es null o undefined
@@ -55,8 +64,8 @@ const BuscarContenidoTest = ({
     return <div>Error: {error.message}</div>;
   }
 
-
   
+
   return (
 
     <section style={{ marginTop: "0.5rem", minHeight: "60dvh" }}>
@@ -102,7 +111,7 @@ const BuscarContenidoTest = ({
                     {news.etiquetas && news.etiquetas.length > 0 && (
                       <div className="post-tags">
                         <strong>Tags: </strong>
-                        {news.etiquetas.map((tag) => tag).join(", ")}
+                        {news.etiquetas.map((tag) => tag.nombre).join(", ")}
                       </div>
                     )}
                   </div>

@@ -60,7 +60,8 @@ const TagSelected = ({
   // const paginatedTags = allTags.slice((tagPage - 1) * itemsPerPage, tagPage * itemsPerPage);
 
   const toggleCategory = (category) => {
-    if (selectedCategories.includes(category)) {
+    const exists = selectedCategories.some(c => c.id === category.id);
+    if (exists) {
       onCategoryRemove(category);
     } else {
       onCategorySelect(category);
@@ -108,7 +109,7 @@ const TagSelected = ({
         <div className="tag-selected-categorias__content">
           {categorias.map((category) => (
             <span
-              key={category}
+              key={category.id}
               className={`tag-selected-categorias__item ${selectedCategories.includes(category) ? 'active' : ''}`}
               onClick={() => toggleCategory(category)}
             >
@@ -148,8 +149,9 @@ const TagSelected = ({
         <div className="tag-selected-categorias__content">
           {etiquetas.map((tag) => (
             <span
+            
               key={tag.id}
-              className={`tag-selected-categorias__item ${selectedTags.includes(tag) ? 'active' : ''}`}
+              className={`tag-selected-categorias__item  ${selectedTags.includes(tag) ? 'active' : ''}`}
               onClick={() => toggleTag(tag)}
             >
               <img src="/images/buscarnoticias/tag.svg" alt="" />

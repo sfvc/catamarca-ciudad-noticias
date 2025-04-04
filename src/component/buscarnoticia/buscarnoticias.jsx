@@ -17,7 +17,7 @@ import MenuBarMobile from './menuBarMobile';
 const queryClient = new QueryClient();
 
 const BuscarNoticias = () => {
-  
+
   const [posts, setPosts] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -81,7 +81,7 @@ const BuscarNoticias = () => {
     return isAscending ? dateA - dateB : dateB - dateA;
   });
 
-  const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
+
   const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
 
   const paginate = (pageNumber) => {
@@ -94,7 +94,6 @@ const BuscarNoticias = () => {
   const handleCategorySelect = (category) => {
     setSelectedCategories((prev) => {
       const updatedCategories = [...prev, category];
-      console.log('Updated Categories:', updatedCategories);
       return updatedCategories;
     });
   };
@@ -102,7 +101,6 @@ const BuscarNoticias = () => {
   const handleTagSelect = (tag) => {
     setSelectedTags((prev) => {
       const updatedTags = [...prev, tag];
-      console.log('Updated Tags:', updatedTags);
       return updatedTags;
     });
   };
@@ -174,10 +172,7 @@ const BuscarNoticias = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   // console.log('selectedCategories (after update):', selectedCategories);
-  //   // console.log('selectedTags (after update):', selectedTags);
-  // }, [selectedCategories, selectedTags]);
+
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -280,64 +275,64 @@ const BuscarNoticias = () => {
             {postsPerPage}
           </button>
 
-        {/* Modals for categories and calendar */}
-        {isModalOpen && (
-          <CategoriasModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onCategorySelect={handleCategorySelect}
-            onTagSelect={handleTagSelect}
-            selectedCategories={selectedCategories}
-            selectedTags={selectedTags}
-          />
-        )}
-
-        {isModalCalendarOpen && (
-          <CalendarModal
-            isOpen={isModalCalendarOpen}
-            onClose={() => setIsModalCalendarOpen(false)}
-            onDateSelect={handleDateSelect}
-          />
-        )}
-
-        {isMenuBarMobileOpen && (
-          <ModalMobile isOpen={isMenuBarMobileOpen} onClose={toggleMenuBarMobile}>
-            <MenuBarMobile
-              isOpen={isMenuBarMobileOpen}
-              closeModal={toggleMenuBarMobile}
-              handleRowsChange={handleRowsChange}
-            />
-          </ModalMobile>
-        )}
-
-        {/* Mobile Modals */}
-        {isMobileModalOpen && (
-          <ModalMobile isOpen={isMobileModalOpen} onClose={() => setIsMobileModalOpen(false)}>
-            <CategoriasModalMobile
-              selectedCategories={selectedCategories}
-              selectedTags={selectedTags}
+          {/* Modals for categories and calendar */}
+          {isModalOpen && (
+            <CategoriasModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
               onCategorySelect={handleCategorySelect}
               onTagSelect={handleTagSelect}
-              onTagRemoveCategory={handleTagRemove}
+              selectedCategories={selectedCategories}
+              selectedTags={selectedTags}
             />
-          </ModalMobile>
-        )}
+          )}
 
-        {isModalCalendarMobileOpen && (
-          <ModalMobile isOpen={isModalCalendarMobileOpen} onClose={() => setIsModalCalendarMobileOpen(false)}>
-            <CalendarModalMobile onClose={handleDateSelect} />
-          </ModalMobile>
-        )}
-
-        {isMenuBarMobileOpen && (
-          <ModalMobile isOpen={isMenuBarMobileOpen} onClose={toggleMenuBarMobile}>
-            <MenuBarMobile
-              isOpen={isMenuBarMobileOpen}
-              closeModal={toggleMenuBarMobile}
-              handleRowsChange={handleRowsChange}
+          {isModalCalendarOpen && (
+            <CalendarModal
+              isOpen={isModalCalendarOpen}
+              onClose={() => setIsModalCalendarOpen(false)}
+              onDateSelect={handleDateSelect}
             />
-          </ModalMobile>
-        )}
+          )}
+
+          {isMenuBarMobileOpen && (
+            <ModalMobile isOpen={isMenuBarMobileOpen} onClose={toggleMenuBarMobile}>
+              <MenuBarMobile
+                isOpen={isMenuBarMobileOpen}
+                closeModal={toggleMenuBarMobile}
+                handleRowsChange={handleRowsChange}
+              />
+            </ModalMobile>
+          )}
+
+          {/* Mobile Modals */}
+          {isMobileModalOpen && (
+            <ModalMobile isOpen={isMobileModalOpen} onClose={() => setIsMobileModalOpen(false)}>
+              <CategoriasModalMobile
+                selectedCategories={selectedCategories}
+                selectedTags={selectedTags}
+                onCategorySelect={handleCategorySelect}
+                onTagSelect={handleTagSelect}
+                onTagRemoveCategory={handleTagRemove}
+              />
+            </ModalMobile>
+          )}
+
+          {isModalCalendarMobileOpen && (
+            <ModalMobile isOpen={isModalCalendarMobileOpen} onClose={() => setIsModalCalendarMobileOpen(false)}>
+              <CalendarModalMobile onClose={handleDateSelect} />
+            </ModalMobile>
+          )}
+
+          {isMenuBarMobileOpen && (
+            <ModalMobile isOpen={isMenuBarMobileOpen} onClose={toggleMenuBarMobile}>
+              <MenuBarMobile
+                isOpen={isMenuBarMobileOpen}
+                closeModal={toggleMenuBarMobile}
+                handleRowsChange={handleRowsChange}
+              />
+            </ModalMobile>
+          )}
         </div>
       </div>
     </QueryClientProvider>
