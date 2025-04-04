@@ -30,6 +30,12 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader, closeModal, modalRef })
     toggleHueRotatePi,
     lineaGuiaVisible,
     toggleLineaGuia,
+    highlighted,
+    toggleHighlighted,
+    toggleTextToSpeech,
+    textToSpeechEnabled,
+    colorFuente,
+    cycleColorFuente
   } = useAccessibility();
 
   // State to track which hue rotate and sepia is active
@@ -178,8 +184,7 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader, closeModal, modalRef })
                 label={getHueRotateLabel()}
                 onClick={handleCycleHueRotate}
               />
-
-            <AccessItems
+              <AccessItems
               itemDesk={'accessItemDesk'}
               itemMobile={'accessItem'}
               img={'./images/adaptabilidad/lineaGuia.svg'}
@@ -188,6 +193,36 @@ const AccessMenu = ({ toggleMenu, clase, ul, showHeader, closeModal, modalRef })
               label={lineaGuiaVisible ? 'Desactivar Linea Guia' : 'Activar Linea Guia'}
               onClick={toggleLineaGuia}  // Toggle LineaGuia
             />
+
+            <AccessItems
+              itemDesk={'accessItemDesk'}
+              itemMobile={'accessItem'}
+              img={'./images/adaptabilidad/highlighted.svg'}
+              titulo='Destacar Enlaces y Botones'
+              icon="fa-highlighter"
+              label={highlighted ? 'Desactivar Destacar Links' : 'Activar Destacar Links'}
+              onClick={toggleHighlighted} // Toggle highlighted state
+            />
+
+              <AccessItems
+                itemDesk={'accessItemDesk'}
+                itemMobile={'accessItem'}
+                img={'./images/adaptabilidad/textoVoz.svg'}
+                titulo='Texto a Voz'
+                icon="fa-adjust"
+                label={textToSpeechEnabled ? 'Desactivar Texto a Voz' : 'Activar Texto a Voz'}
+                onClick={toggleTextToSpeech}
+              />
+
+              <AccessItems
+                itemDesk={'accessItemDesk'}
+                itemMobile={'accessItem'}
+                img={'./images/adaptabilidad/textoVoz.svg'}
+                titulo='Color Fuente'
+                icon="fa-adjust"
+                label={colorFuente ? 'Cambiar color' : 'desactivar'}
+                onClick={cycleColorFuente}
+              />
             
             </ul>
           </div>

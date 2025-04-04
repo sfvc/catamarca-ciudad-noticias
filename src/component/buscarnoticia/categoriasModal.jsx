@@ -112,7 +112,7 @@ const CategoriasModal = ({
   );
 
   return (
-    <div className="categorias-modal__overlay container">
+    <div className="categorias-modal__overlay">
       <div ref={modalContentRef} className="categorias-modal__content">
         <div className="categorias-modal__btns">
           <button

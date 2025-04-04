@@ -60,7 +60,7 @@ const CalendarModal = ({ onClose, onDateSelect, initialDates }) => {
   };
 
   return (
-    <div className="categorias-modal__overlay container">
+    <div className="categorias-modal__overlay">
       <div className="categorias-modal__content-calendar" ref={modalRef}>
         <Calendar
           value={dates}

@@ -4,7 +4,7 @@ import AccessMenu from './accessComponents/accessMenu';
 import AccessButton from './accessComponents/accessButton';
 import ModalMobile from './modalMobile';
 
-const AccessBtnMobile = () => {
+const AccessBtnMobile = ({isMenuMobileOpen, closeMenuMobile}) => {
   const {
     // Accessibility settings
     fontSize,
@@ -35,7 +35,6 @@ const AccessBtnMobile = () => {
 
   const toggleMenu = () => setIsMenuOpenMobile(!isMenuOpenMobile);
 
-
   useEffect(() => {
     if (dyslexiaFont) {
       document.body.classList.add('dyslexia-font');
@@ -46,12 +45,13 @@ const AccessBtnMobile = () => {
 
   return (
     <div className='displaymobile'>
-      {isMenuOpen && (
-        <ModalMobile isOpen={isMenuOpen} onClose={toggleMenu}>
+      {isMenuMobileOpen && (
+        <ModalMobile isOpen={isMenuMobileOpen} onClose={closeMenuMobile}>
           <AccessMenu
-            clase={'access-menu'}
-            ul={'access-menu__ul'}
+            clase={'access-menu__mobile'}
+            ul={'access-menu__ul__mobile'}
             toggleMenu={toggleMenu}
+            closeModal={closeMenuMobile} // Pass closeMenuMobile as closeModal
             handleIncreaseFontSize={increaseFontSize}
             handleDecreaseFontSize={decreaseFontSize}
             handleResetValues={resetSettings}

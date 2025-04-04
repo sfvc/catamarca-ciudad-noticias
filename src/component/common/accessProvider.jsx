@@ -19,6 +19,8 @@ const resetLocalStorage = () => {
   localStorage.removeItem('hueRotateQuarterTurn');
   localStorage.removeItem('hueRotatePi');
   localStorage.removeItem('lineaGuiaVisible');  // Reset lineaGuiaVisible
+  localStorage.removeItem('textToSpeechEnabled');
+  localStorage.removeItem('colorFuente');
 };
 
 const AccessProvider = ({ children }) => {
@@ -35,12 +37,31 @@ const AccessProvider = ({ children }) => {
   const [sepia, setSepia] = useState(() => localStorage.getItem('sepia') === 'true');
   const [hueRotate90, setHueRotate90] = useState(() => localStorage.getItem('hueRotate90') === 'true');
   const [hueRotateQuarterTurn, setHueRotateQuarterTurn] = useState(() => localStorage.getItem('hueRotateQuarterTurn') === 'true');
-  const [hueRotatePi, setHueRotatePi] = useState(() => localStorage.getItem('hueRotatePi') === 'true');
-  
-  // State for LineaGuia visibility
+  const [hueRotatePi, setHueRotatePi] = useState(() => localStorage.getItem('hueRotatePi') === 'true');  
   const [lineaGuiaVisible, setLineaGuiaVisible] = useState(() => localStorage.getItem('lineaGuiaVisible') === 'true');
+  const [highlighted, setHighlighted] = useState(() => localStorage.getItem('highlighted') === 'true');
+  const [textToSpeechEnabled, setTextToSpeechEnabled] = useState(() => localStorage.getItem('textToSpeechEnabled') === 'true');
+  const [colorFuente, setColorFuente] = useState(() => localStorage.getItem('colorFuente') === 'true');
 
-  // Toggle LineaGuia visibility
+
+  const cycleColorFuente = () => {
+    const colorOptions = ['yellow', 'red', 'green', 'blue', 'purple'];
+    const currentIndex = colorOptions.indexOf(colorFuente);
+    const nextIndex = (currentIndex + 1) % colorOptions.length;
+    const newColor = colorOptions[nextIndex];
+    setColorFuente(newColor);
+    saveToLocalStorage('colorFuente', newColor);
+  };
+
+  const toggleTextToSpeech = () => {
+    setTextToSpeechEnabled(prev => {
+      const newValue = !prev;
+      saveToLocalStorage('textToSpeechEnabled', newValue); // Save to localStorage
+      return newValue;
+    });
+  };
+
+
   const toggleLineaGuia = () => {
     setLineaGuiaVisible(prevState => {
       const newValue = !prevState;
@@ -70,15 +91,61 @@ const AccessProvider = ({ children }) => {
     setHueRotateQuarterTurn(false);
     setHueRotatePi(false);
     setLineaGuiaVisible(false);  // Reset LineaGuia visibility
+    setTextToSpeechEnabled(false); 
+    setColorFuente('');
     resetLocalStorage();  // Reset localStorage for all settings
   };
 
+
+    // Function to handle text-to-speech on mouse hover
+    const handleMouseEnter = (event) => {
+      if (textToSpeechEnabled) {
+        const text = event.target.innerText || event.target.value;
+        if (text) {
+          const speech = new SpeechSynthesisUtterance(text);
+          speech.lang = 'en-es';  // Set the language, can be changed as needed
+          window.speechSynthesis.speak(speech);
+        }
+      }
+    };
+  
+    // Function to stop speech when mouse leaves
+    const handleMouseLeave = () => {
+      window.speechSynthesis.cancel();
+    };
+
   // Increase or decrease font size and save to localStorage
   const increaseFontSize = () => {
-    setFontSize(prevSize => {
+    setFontSize((prevSize) => {
       const newSize = prevSize + 2;
       saveToLocalStorage('fontSize', newSize);
+      
+      // Apply the increased font size and other styles to the body tag
+      document.body.style.fontSize = `${newSize}px`;
+      document.body.style.fontWeight = 'bold';
+      
+      // Apply the styles to a broader set of elements (headings, links, buttons, etc.)
+      const textElements = document.querySelectorAll(
+        'h1, h2, h3, h4, a, button, p, small, textarea, q, span, strong, em, label, li, ul, ol, blockquote, div'
+      );
+      
+      textElements.forEach((element) => {
+        // Apply styles with !important-like behavior
+        element.style.setProperty('font-size', `${newSize}px`, 'important');
+        element.style.setProperty('font-weight', 'bold', 'important');
+      });
+  
       return newSize;
+    });
+  };
+
+
+  // Toggle highlighted state
+  const toggleHighlighted = () => {
+    setHighlighted((prev) => {
+      const newState = !prev;
+      saveToLocalStorage('highlighted', newState);
+      return newState;
     });
   };
 
@@ -86,6 +153,20 @@ const AccessProvider = ({ children }) => {
     setFontSize(prevSize => {
       const newSize = prevSize - 2;
       saveToLocalStorage('fontSize', newSize);
+      
+      document.body.style.fontSize = `${newSize}px`;
+      document.body.style.fontWeight = 'bold';
+      
+      // Apply the styles to a broader set of elements (headings, links, buttons, etc.)
+      const textElements = document.querySelectorAll(
+        'h1, h2, h3, h4, a, button, p, small, textarea, q, span, strong, em, label, li, ul, ol, blockquote, div'
+      );
+      
+      textElements.forEach((element) => {
+        // Apply styles with !important-like behavior
+        element.style.setProperty('font-size', `${newSize}px`, 'important');
+        element.style.setProperty('font-weight', 'bold', 'important');
+      });
       return newSize;
     });
   };
@@ -130,8 +211,40 @@ const AccessProvider = ({ children }) => {
     } else {
       document.documentElement.classList.remove('dark-mode');
     }
-  
-  }, [highContrast, dyslexiaFont, grayscale, darkMode, sepia, hueRotate90, hueRotateQuarterTurn, hueRotatePi]);
+    
+    const linkElements = document.querySelectorAll('a, button');
+    if (highlighted) {
+      linkElements.forEach((element) => {
+        element.classList.add('highlighted');
+      });
+    } else {
+      linkElements.forEach((element) => {
+        element.classList.remove('highlighted');
+      });
+    }
+
+    // Add mouse event listeners for text-to-speech
+    const textElements = document.querySelectorAll(
+      'h1, h2, h3, h4, p, span, li, button, label, a'
+    );
+    textElements.forEach(element => {
+      element.addEventListener('mouseenter', handleMouseEnter);
+      element.addEventListener('mouseleave', handleMouseLeave);
+    });
+
+    textElements.forEach((element) => {
+      element.style.color = colorFuente; // Apply the selected color
+    });
+
+    return () => {
+      textElements.forEach(element => {
+        element.removeEventListener('mouseenter', handleMouseEnter);
+        element.removeEventListener('mouseleave', handleMouseLeave);
+      });
+    };
+    
+
+  }, [highContrast, dyslexiaFont, grayscale, darkMode, sepia, hueRotate90, hueRotateQuarterTurn, hueRotatePi, highlighted, textToSpeechEnabled, colorFuente]);
 
   return (
     <AccessibilityContext.Provider
@@ -158,6 +271,13 @@ const AccessProvider = ({ children }) => {
         toggleHueRotatePi: () => toggleSetting(hueRotatePi, setHueRotatePi, 'hueRotatePi'),
         lineaGuiaVisible,
         toggleLineaGuia,  // Provide function to toggle LineaGuia
+        toggleHighlighted,
+        highlighted,
+        toggleHighlighted,
+        toggleTextToSpeech, // Provide function to toggle text-to-speech
+        textToSpeechEnabled,
+        colorFuente,
+        cycleColorFuente,
       }}
     >
       {children}
