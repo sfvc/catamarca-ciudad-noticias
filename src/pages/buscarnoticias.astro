@@ -1,9 +1,9 @@
 ---
 import BuscarNoticias from 'component/buscarnoticia/buscarnoticias';
 import Layout from './layout/Layout.astro';
-
+import BuscadorDeNoticias from '../component/buscarnoticia/BuscadorDeNoticias'
 ---
 
 <Layout title={'Buscador de Noticias'}>
-    <BuscarNoticias client:only="react"/>
+    <BuscadorDeNoticias client:only="react"/>
 </Layout>

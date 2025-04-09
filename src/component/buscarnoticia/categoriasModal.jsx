@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import TagSelected from './tagsSelected';
+import TagSelected from './components/tagsSelected';
 
 const CategoriasModal = ({
   isOpen,

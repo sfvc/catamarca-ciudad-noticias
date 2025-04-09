@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import BuscarPaginado from './buscarPaginado';
-import BuscarContenidoTest from './buscarContenidoTest';
-import TagSelected from './tagsSelected';
+import BuscarPaginado from './components/buscarPaginado';
+import BuscarContenidoTest from './components/buscarContenidoTest';
+import TagSelected from './components/tagsSelected';
 import Tooltip from 'component/common/tooltip';
 import BuscarContenido from './buscarContenido';
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
@@ -21,6 +21,7 @@ const BuscarNoticias = () => {
   const [posts, setPosts] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages ,setTotalPages] = useState(0)
   const [inputPage, setInputPage] = useState('');
   const [postsPerPage, setPostsPerPage] = useState(6);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -82,7 +83,7 @@ const BuscarNoticias = () => {
   });
 
 
-  const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+  // const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
 
   const paginate = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
@@ -287,15 +288,16 @@ const BuscarNoticias = () => {
             onPageChange={paginate}
             onInputChange={handleInputChange}
           />
-          <button
+
+          {/* <button
             className='buscar-paginado__input'
             onClick={() => setMenuOpen(!menuOpen) || toggleMenuBarMobile(true)}
           >
             {postsPerPage}
-          </button>
+          </button> */}
 
 
-          {isMenuBarMobileOpen && (
+          {/* {isMenuBarMobileOpen && (
             <ModalMobile isOpen={isMenuBarMobileOpen} onClose={toggleMenuBarMobile}>
               <MenuBarMobile
                 isOpen={isMenuBarMobileOpen}
@@ -336,7 +338,6 @@ const BuscarNoticias = () => {
                 </ModalMobile>
               )}
 
-              {/* Mobile Modals */}
               {isMobileModalOpen && (
                 <ModalMobile isOpen={isMobileModalOpen} onClose={() => setIsMobileModalOpen(false)}>
                   <CategoriasModalMobile
@@ -363,9 +364,9 @@ const BuscarNoticias = () => {
                     handleRowsChange={handleRowsChange}
                   />
                 </ModalMobile>
-              )
-              }
-          </div>
+              ) */}
+
+        </div>
       </div>
     </QueryClientProvider>
   );

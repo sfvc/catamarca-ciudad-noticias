@@ -66,7 +66,7 @@ html {
     margin-block: 10px;
 }
 
-.paginado a {
+.paginado button {
     padding: 8px 16px;
     margin: 0 4px;
     text-decoration: none;
@@ -76,14 +76,21 @@ html {
     border-radius: 10px;
 }
 
-.paginado a.active {
+.paginado-ellipsis {
+  padding: 8px 12px;
+  margin: 0 4px;
+  color: #999;
+  user-select: none;
+}
+
+.paginado button.active {
     background-color: whitesmoke;
     color: black;
     border: 1px solid #666;
 }
 
-.paginado a:hover:not(.active) {
-    background-color: #f1f1f1;
+.paginado button:hover:not(.active) {
+  background-color: #f1f1f1;
 }
 
 body.modal-open {
@@ -253,4 +260,16 @@ h1 {
 
   .image-gallery-icon{
     z-index: 1 !important;
+  }
+
+  .paginado.nav-button {
+    font-weight: 500;
+    background-color: #f9f9f9;
+    color: #333;
+    border: 1px solid #ccc;
+    transition: background-color 0.2s ease;
+  }
+  
+  .paginado.nav-button:hover {
+    background-color: #e6e6e6;
   }
